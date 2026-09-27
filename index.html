@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Inter Wood Гомель — мебель из массива дуба: обеденные столы и стулья.">
+<title>Inter Wood Гомель</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Onest:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --stone:#F4F2EE;
+  --stone-2:#ECE8E1;
+  --line:#E2DDD4;
+  --graphite:#232528;
+  --graphite-2:#4A4D52;
+  --muted:#7C7A76;
+  --oak:#B8895A;
+  --oak-deep:#8E6238;
+  --oak-pale:#EADCC8;
+  --metal:#121314;
+  --ok:#3F6B4A;
+  --err:#A5432C;
+  --display:"Tenor Sans","Cormorant Garamond",Georgia,serif;
+  --body:"Onest",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(16px,4vw,56px);
+  --max:1320px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--graphite);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--oak);outline-offset:3px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--oak-deep)}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Header ---------- */
+.topbar{background:var(--metal);color:#CFCBC4;font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:16px;padding-block:8px;flex-wrap:wrap}
+.topbar span b{color:#fff;font-weight:500}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:32px;height:72px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.logo-mark{width:34px;height:34px;display:block}
+.logo-text{display:flex;flex-direction:column;line-height:1.05}
+.logo-text strong{font-family:var(--display);font-weight:400;font-size:21px;letter-spacing:.06em;text-transform:uppercase}
+.logo-text small{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--oak-deep)}
+nav.main{display:flex;gap:28px;margin-left:auto}
+nav.main a{text-decoration:none;font-size:15px;color:var(--graphite-2);position:relative;padding-block:6px}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--oak);transition:right .3s}
+nav.main a:hover{color:var(--graphite)}
+nav.main a:hover::after{right:0}
+.h-contact{display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}
+.h-contact .phone{font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;user-select:all}
+.h-contact small{font-size:12px;color:var(--muted)}
+.cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;height:44px;padding-inline:16px;border:1px solid var(--graphite);background:var(--graphite);color:#fff;border-radius:2px;font-size:14px;transition:background .2s}
+.cart-btn:hover{background:var(--metal)}
+.cart-btn svg{width:18px;height:18px}
+.cart-count{min-width:20px;height:20px;border-radius:10px;background:var(--oak);color:#fff;font-size:12px;display:inline-grid;place-items:center;padding-inline:5px;font-variant-numeric:tabular-nums}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:2px;align-items:center;justify-content:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:18px;height:1.5px;background:var(--graphite);position:relative;content:""}
+.burger span::before{position:absolute;top:-6px}
+.burger span::after{position:absolute;top:6px}
+.mobile-nav{display:none;border-top:1px solid var(--line);background:#fff}
+.mobile-nav a{display:block;padding:14px var(--gutter);text-decoration:none;border-bottom:1px solid var(--line);font-size:17px}
+.mobile-nav .m-contact{padding:16px var(--gutter);font-size:14px;color:var(--muted)}
+.mobile-nav .m-contact b{display:block;color:var(--graphite);font-size:17px;user-select:all}
+
+/* ---------- Hero ---------- */
+.hero{padding-block:clamp(40px,6vw,88px) clamp(48px,6vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,5vw,80px);align-items:center}
+.hero h1{font-size:clamp(38px,5.4vw,76px);line-height:1.02;margin-block:18px 22px}
+.hero h1 em{font-style:normal;color:var(--oak-deep)}
+.hero p.lead{font-size:clamp(17px,1.5vw,19px);color:var(--graphite-2);max-width:34em;margin:0 0 32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding-inline:28px;border-radius:2px;border:1px solid var(--graphite);font-size:15px;font-weight:500;letter-spacing:.02em;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.btn-dark{background:var(--graphite);color:#fff}
+.btn-dark:hover{background:var(--metal)}
+.btn-ghost{background:transparent;color:var(--graphite)}
+.btn-ghost:hover{background:var(--graphite);color:#fff}
+.btn-oak{background:var(--oak);border-color:var(--oak);color:#fff}
+.btn-oak:hover{background:var(--oak-deep);border-color:var(--oak-deep)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-visual{position:relative;background:var(--stone);aspect-ratio:6/5;max-width:100%;overflow:hidden}
+.hero-visual svg{position:absolute;inset:0;width:100%;height:100%}
+.hero-tag{position:absolute;background:#fff;padding:10px 14px;font-size:13px;line-height:1.35;border:1px solid var(--line)}
+.hero-tag b{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--oak-deep)}
+.hero-tag.t1{top:7%;left:6%}
+.hero-tag.t2{bottom:8%;right:6%}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(40px,5vw,72px)}
+.fact{padding:22px 24px 22px 0;display:flex;gap:14px;align-items:baseline}
+.fact+.fact{padding-left:24px;border-left:1px solid var(--line)}
+.fact b{font-family:var(--display);font-weight:400;font-size:30px;line-height:1;color:var(--oak-deep);flex-shrink:0}
+.fact span{font-size:14px;color:var(--graphite-2);line-height:1.45}
+
+/* ---------- Catalog ---------- */
+section.block{padding-block:clamp(56px,7vw,110px)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font-size:clamp(32px,3.6vw,52px);line-height:1.05;margin-top:10px}
+.sec-head p{margin:0;color:var(--muted);max-width:30em}
+.filters{display:flex;flex-direction:column;gap:18px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.cats{display:flex;gap:8px;flex-wrap:wrap}
+.cat{height:46px;padding-inline:22px;border:1px solid var(--line);background:#fff;border-radius:2px;font-size:15px;transition:all .2s}
+.cat:hover{border-color:var(--graphite)}
+.cat[aria-pressed="true"]{background:var(--graphite);border-color:var(--graphite);color:#fff}
+.cat .c{font-family:var(--mono);font-size:12px;opacity:.6;margin-left:6px}
+.params{display:flex;gap:28px;flex-wrap:wrap;align-items:center}
+.pgroup{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pgroup>span{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:2px;background:#fff;flex-wrap:wrap}
+.seg button{height:38px;padding-inline:14px;border:0;background:transparent;font-size:14px;color:var(--graphite-2);transition:background .2s,color .2s}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--oak-pale);color:var(--graphite)}
+.seg button:hover{color:var(--graphite)}
+.params-hint{font-size:14px;color:var(--muted)}
+.reset{border:0;background:none;font-size:14px;color:var(--oak-deep);text-decoration:underline;text-underline-offset:3px;padding:0}
+.result-line{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px;font-size:14px;color:var(--muted)}
+.result-line select{height:38px;border:1px solid var(--line);background:#fff;padding-inline:10px;font:inherit;color:var(--graphite);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:clamp(20px,2.4vw,36px)}
+.card{display:flex;flex-direction:column;text-align:left;border:0;padding:0;background:none;cursor:pointer;animation:rise .45s ease both}
+@keyframes rise{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card-img{position:relative;background:var(--stone);aspect-ratio:4/3.4;max-width:100%;overflow:hidden;transition:background .3s}
+.card-img svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card:hover .card-img{background:var(--stone-2)}
+.card:hover .card-img svg{transform:scale(1.04)}
+.badge{position:absolute;top:14px;left:14px;background:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;color:var(--graphite-2)}
+.card-open{position:absolute;right:14px;bottom:14px;background:var(--graphite);color:#fff;font-size:13px;padding:8px 12px;opacity:0;transform:translateY(6px);transition:all .3s}
+.card:hover .card-open,.card:focus-visible .card-open{opacity:1;transform:none}
+.card-body{padding-top:18px;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:baseline}
+.card-body h3{font-size:24px;line-height:1.15}
+.card-body .type{grid-column:1/-1;font-size:13px;color:var(--muted);order:-1}
+.card-body .price{font-size:17px;font-weight:600;white-space:nowrap}
+.card-body .price small{font-weight:400;color:var(--muted);font-size:13px;margin-right:3px}
+.specs{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.specs span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);padding:3px 8px;color:var(--graphite-2)}
+.swatches{grid-column:1/-1;display:flex;gap:6px;margin-top:12px}
+.swatches i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.empty{grid-column:1/-1;padding:56px 24px;text-align:center;background:var(--stone);color:var(--graphite-2)}
+.empty p{margin:0 0 16px}
+
+/* ---------- About ---------- */
+.about{background:var(--graphite);color:#E9E6E0}
+.about .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.about h2{font-size:clamp(32px,3.6vw,52px);line-height:1.08;color:#fff;margin-top:12px}
+.about .eyebrow{color:#D2AE83}
+.about p{color:#BDB8B0;margin:0 0 16px;max-width:36em}
+.steps{display:grid;gap:0;margin-top:8px}
+.step{display:grid;grid-template-columns:56px 1fr;gap:16px;padding-block:22px;border-top:1px solid #3A3D42}
+.step:last-child{border-bottom:1px solid #3A3D42}
+.step b{font-family:var(--mono);font-weight:400;color:#D2AE83;font-size:13px;padding-top:4px}
+.step h3{font-size:21px;color:#fff;margin-bottom:4px}
+.step p{margin:0;font-size:15px}
+
+/* ---------- Contacts ---------- */
+.contacts .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px)}
+.c-list{display:grid;gap:0}
+.c-row{display:grid;grid-template-columns:140px 1fr;gap:16px;padding-block:18px;border-top:1px solid var(--line)}
+.c-row:last-child{border-bottom:1px solid var(--line)}
+.c-row dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+.c-row dd{margin:0;font-size:17px}
+.c-row dd small{display:block;color:var(--muted);font-size:14px}
+.copy{border:1px solid var(--line);background:#fff;font-size:12px;padding:3px 9px;margin-left:10px;border-radius:2px;vertical-align:middle}
+.copy:hover{border-color:var(--graphite)}
+.quick{background:var(--stone);padding:clamp(24px,3.5vw,44px)}
+.quick h3{font-size:30px;margin-bottom:8px}
+.quick>p{color:var(--graphite-2);margin:0 0 22px}
+
+/* ---------- Forms ---------- */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;color:var(--graphite-2)}
+.field input,.field textarea,.field select{height:50px;border:1px solid var(--line);background:#fff;border-radius:2px;padding-inline:14px;font:inherit;font-size:16px;color:var(--graphite);transition:border-color .2s}
+.field textarea{height:88px;padding-block:12px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--graphite)}
+.field.bad input{border-color:var(--err)}
+.field .err{font-size:12.5px;color:var(--err);display:none}
+.field.bad .err{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.note{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.success{padding:22px;border:1px solid var(--ok);background:#F1F6F1;color:var(--ok)}
+.success h4{margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:22px;color:var(--graphite)}
+.success p{margin:0;color:var(--graphite-2);font-size:14.5px}
+
+/* ---------- Footer ---------- */
+footer{background:var(--metal);color:#A9A59E;padding-block:56px 32px;font-size:14px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+footer h4{font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#6F6B65;margin:0 0 14px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none;color:#D9D5CE}
+footer a:hover{color:#fff}
+footer .logo-text strong{color:#fff}
+footer .logo-text small{color:#D2AE83}
+.f-about{margin:16px 0 0;max-width:30em}
+.insta{display:inline-flex;align-items:center;gap:10px;border:1px solid #34363A;padding:10px 16px;border-radius:2px;color:#fff!important;margin-top:4px}
+.insta svg{width:18px;height:18px}
+.f-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid #26282B;margin-top:44px;padding-top:20px;font-size:12.5px;color:#6F6B65}
+
+/* ---------- Modal ---------- */
+.overlay{position:fixed;inset:0;background:rgba(18,19,20,.55);z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:#fff;width:min(1080px,100%);max-height:calc(100dvh - 32px);overflow:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);position:relative;transform:translateY(14px);transition:transform .3s}
+.overlay.open .modal{transform:none}
+.m-visual{background:var(--stone);position:relative;min-height:420px}
+.m-visual svg{position:absolute;inset:0;width:100%;height:100%}
+.m-visual .badge{top:18px;left:18px}
+.m-coat-name{position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:12px;color:var(--graphite-2)}
+.m-info{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;gap:22px}
+.m-info h2{font-size:clamp(30px,3vw,40px);line-height:1.05}
+.m-info .type{font-size:14px;color:var(--muted);margin-bottom:6px}
+.m-desc{margin:0;color:var(--graphite-2);font-size:15px}
+.opt h4{margin:0 0 10px;font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.opt h4 em{font-style:normal;color:var(--graphite);letter-spacing:0;text-transform:none;font-family:var(--body);font-size:13px}
+.sizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.size{border:1px solid var(--line);background:#fff;padding:12px 8px;border-radius:2px;display:flex;flex-direction:column;align-items:center;gap:2px;transition:border-color .2s,background .2s}
+.size b{font-weight:500;font-size:15px;font-variant-numeric:tabular-nums}
+.size small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.size:hover{border-color:var(--graphite-2)}
+.size[aria-checked="true"]{border-color:var(--graphite);background:var(--graphite);color:#fff}
+.size[aria-checked="true"] small{color:#CFCBC4}
+.coats{display:flex;gap:12px;flex-wrap:wrap}
+.coat{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;font-size:12.5px;color:var(--graphite-2)}
+.coat i{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);outline:1px solid transparent;outline-offset:3px;transition:outline-color .2s}
+.coat[aria-checked="true"] i{outline:1.5px solid var(--graphite)}
+.coat[aria-checked="true"]{color:var(--graphite);font-weight:500}
+.buy{border-top:1px solid var(--line);padding-top:20px;display:grid;gap:14px}
+.buy-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.total{font-size:32px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.total small{display:block;font-size:12.5px;font-weight:400;color:var(--muted);margin-top:6px}
+.qty{display:inline-flex;border:1px solid var(--line);height:46px;align-items:stretch;border-radius:2px}
+.qty button{width:42px;border:0;background:none;font-size:18px}
+.qty button:hover{background:var(--stone)}
+.qty output{min-width:34px;display:grid;place-items:center;font-variant-numeric:tabular-nums;font-weight:500}
+.buy-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.buy-btns .btn{padding-inline:12px}
+.oneclick{background:var(--stone);padding:18px}
+.oneclick .row2{align-items:end}
+.oneclick .field{margin-bottom:0}
+.close{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;z-index:2;font-size:20px;line-height:1}
+.close:hover{border-color:var(--graphite)}
+
+/* ---------- Cart drawer ---------- */
+.drawer-ov{position:fixed;inset:0;background:rgba(18,19,20,.45);z-index:70;opacity:0;pointer-events:none;transition:opacity .25s}
+.drawer-ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(480px,100%);background:#fff;z-index:71;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:none}
+.d-head{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid var(--line)}
+.d-head h2{font-size:28px}
+.d-head .close{position:static}
+.d-body{flex:1;overflow:auto;padding:8px 24px 24px}
+.ci{display:grid;grid-template-columns:84px 1fr auto;gap:14px;padding-block:18px;border-bottom:1px solid var(--line);align-items:start}
+.ci-img{background:var(--stone);aspect-ratio:1;position:relative;max-width:100%}
+.ci-img svg{position:absolute;inset:0;width:100%;height:100%}
+.ci h4{margin:0;font-family:var(--display);font-weight:400;font-size:19px;line-height:1.2}
+.ci p{margin:3px 0 10px;font-size:13px;color:var(--muted)}
+.ci .qty{height:36px}
+.ci .qty button{width:34px;font-size:16px}
+.ci-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.ci-right b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rm{border:0;background:none;font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:0}
+.rm:hover{color:var(--err)}
+.d-empty{text-align:center;padding:64px 12px;color:var(--graphite-2)}
+.d-empty svg{width:120px;margin:0 auto 12px;display:block}
+.d-foot{border-top:1px solid var(--line);padding:20px 24px;background:#fff}
+.sum{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.sum span{color:var(--muted);font-size:14px}
+.sum b{font-size:26px;font-variant-numeric:tabular-nums}
+.d-form{margin-top:18px}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--graphite);color:#fff;padding:14px 20px;font-size:14px;z-index:90;opacity:0;pointer-events:none;transition:all .3s;display:flex;gap:14px;align-items:center;max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast button{border:0;background:none;color:#D2AE83;text-decoration:underline;text-underline-offset:3px;padding:0;font-size:14px;white-space:nowrap}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  nav.main{gap:20px}
+  .h-contact{display:none}
+}
+@media (max-width:860px){
+  nav.main{display:none}
+  .burger{display:inline-flex;margin-left:auto}
+  .mobile-nav.open{display:block}
+  .hero .wrap{grid-template-columns:1fr}
+  .about .wrap,.contacts .wrap{grid-template-columns:1fr}
+  .modal{grid-template-columns:1fr}
+  .m-visual{min-height:0;aspect-ratio:4/3}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .f-grid>div:first-child{grid-column:1/-1}
+}
+@media (max-width:620px){
+  .topbar .wrap span:last-child{display:none}
+  header.site .wrap{gap:12px;height:64px}
+  .logo-text strong{font-size:18px}
+  .cart-btn .lbl{display:none}
+  .cart-btn{padding-inline:12px}
+  .facts{grid-template-columns:1fr}
+  .fact{padding:16px 0!important;border-left:0!important}
+  .fact+.fact{border-top:1px solid var(--line)}
+  .hero-tag{font-size:12px;padding:8px 10px}
+  .grid{grid-template-columns:1fr}
+  .buy-btns{grid-template-columns:1fr}
+  .oneclick .row2,.row2{grid-template-columns:1fr}
+  .c-row{grid-template-columns:1fr;gap:4px}
+  .overlay{padding:0;align-items:flex-end}
+  .modal{max-height:94dvh}
+  .sizes{grid-template-columns:1fr 1fr 1fr}
+  .size{padding:10px 4px}
+  .size b{font-size:13.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Шоурум: <b>ТЦ «Мебельный Квартал»</b>, г. Гомель</span>
+    <span>Ежедневно 10:00–20:00 · Доставка по Гомелю и области</span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Inter Wood Гомель — на главную">
+      <svg class="logo-mark" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="1" y="1" width="32" height="32" fill="none" stroke="#232528" stroke-width="1.5"/>
+        <path d="M7 11 Q17 7 27 11 M7 17 Q17 13 27 17 M7 23 Q17 19 27 23" fill="none" stroke="#B8895A" stroke-width="1.5"/>
+      </svg>
+      <span class="logo-text"><strong>Inter Wood</strong><small>Гомель</small></span>
+    </a>
+    <nav class="main" aria-label="Основное меню">
+      <a href="#catalog" data-go="table">Столы</a>
+      <a href="#catalog" data-go="chair">Стулья</a>
+      <a href="#about">О нас</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <div class="h-contact">
+      <a class="phone" href="tel:+375291234567">+375 (29) 123-45-67</a>
+      <small>ТЦ «Мебельный Квартал»</small>
+    </div>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false"><span></span></button>
+    <button class="cart-btn" id="cartBtn" aria-label="Открыть корзину">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="lbl">Корзина</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#catalog" data-go="table">Столы</a>
+    <a href="#catalog" data-go="chair">Стулья</a>
+    <a href="#about">О нас</a>
+    <a href="#contacts">Контакты</a>
+    <div class="m-contact"><b>+375 (29) 123-45-67</b>ТЦ «Мебельный Квартал», г. Гомель</div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Массив дуба · Столы и стулья</div>
+        <h1>Мебель из массива дуба в Гомеле. <em>Эстетика природы</em> в вашем интерьере</h1>
+        <p class="lead">Обеденные столы и стулья фабрики ПМЦ и собственного производства. Цельные ламели дуба, масло с воском, размеры под вашу кухню и гостиную.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#catalog">Смотреть каталог <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#contacts">Приехать в шоурум</a>
+        </div>
+      </div>
+      <div class="hero-visual" id="heroVisual">
+        <div class="hero-tag t1"><b>Стол «Тайфун»</b>раздвижной, от 1 800 BYN</div>
+        <div class="hero-tag t2"><b>Столешница</b>40 мм, дуб, масло</div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="facts">
+        <div class="fact"><b>100%</b><span>массив дуба в каркасе и столешнице, без шпона и МДФ</span></div>
+        <div class="fact"><b>4</b><span>цвета покрытия: Дуб натуральный, Терра, Коньяк, Графит</span></div>
+        <div class="fact"><b>0 BYN</b><span>доставка по Гомелю при заказе стола со стульями</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="catalog" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Каталог</div>
+          <h2>Столы и стулья из дуба</h2>
+        </div>
+        <p>Откройте карточку, чтобы выбрать размер и цвет покрытия. Цена пересчитается сразу.</p>
+      </div>
+
+      <div class="filters">
+        <div class="cats" role="group" aria-label="Категория" id="cats"></div>
+        <div class="params" id="params"></div>
+      </div>
+
+      <div class="result-line">
+        <span id="resultCount" class="num"></span>
+        <label>Сортировка:
+          <select id="sort">
+            <option value="pop">по популярности</option>
+            <option value="asc">сначала дешевле</option>
+            <option value="desc">сначала дороже</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="block about" id="about">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">О нас</div>
+        <h2>Столы, которые переживут не один переезд</h2>
+        <p style="margin-top:24px">Inter Wood — мебельный салон в Гомеле. Мы работаем с фабрикой ПМЦ и делаем часть моделей на собственном производстве. Поэтому можем изменить размер столешницы, высоту или оттенок под ваш интерьер.</p>
+        <p>Весь ассортимент можно посмотреть и потрогать в шоуруме в ТЦ «Мебельный Квартал».</p>
+      </div>
+      <div class="steps">
+        <div class="step"><b>Шаг 1</b><div><h3>Выбор в шоуруме или онлайн</h3><p>Подберём модель, размер и покрытие. Пришлём образцы оттенков.</p></div></div>
+        <div class="step"><b>Шаг 2</b><div><h3>Изготовление</h3><p>Сушка, склейка ламелей, шлифовка и покрытие маслом с воском.</p></div></div>
+        <div class="step"><b>Шаг 3</b><div><h3>Доставка и сборка</h3><p>Привезём и соберём на месте. Гарантия на каркас и столешницу.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block contacts" id="contacts">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Контакты</div>
+        <div class="sec-head" style="margin-bottom:28px"><h2>Приходите в шоурум</h2></div>
+        <dl class="c-list">
+          <div class="c-row"><dt>Адрес</dt><dd>ТЦ «Мебельный Квартал»<small>г. Гомель, Беларусь</small></dd></div>
+          <div class="c-row"><dt>Телефон</dt><dd><span id="phoneText" class="num">+375 (29) 123-45-67</span><button class="copy" data-copy="+375291234567">Копировать</button><small>Viber, Telegram, WhatsApp</small></dd></div>
+          <div class="c-row"><dt>Режим</dt><dd>Ежедневно, 10:00–20:00</dd></div>
+          <div class="c-row"><dt>Instagram</dt><dd><a href="https://www.instagram.com/" target="_blank" rel="noopener">@interwood.gomel</a><small>Новинки и интерьеры клиентов</small></dd></div>
+        </dl>
+      </div>
+      <div class="quick">
+        <h3>Быстрая заявка</h3>
+        <p>Оставьте телефон. Менеджер перезвонит в течение 15 минут в рабочее время и поможет с выбором.</p>
+        <form id="quickForm" novalidate>
+          <div class="row2">
+            <div class="field"><label for="qName">Имя</label><input id="qName" name="name" autocomplete="name" placeholder="Анна"></div>
+            <div class="field"><label for="qPhone">Телефон</label><input id="qPhone" name="phone" type="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__"><span class="err">Укажите номер полностью</span></div>
+          </div>
+          <div class="field"><label for="qMsg">Что вас интересует</label><textarea id="qMsg" name="msg" placeholder="Например: круглый стол на 6 человек и 4 стула"></textarea></div>
+          <button class="btn btn-dark" type="submit" style="width:100%">Отправить заявку</button>
+          <p class="note">Прототип: заявка никуда не отправляется.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a class="logo" href="#top">
+          <svg class="logo-mark" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" fill="none" stroke="#E9E6E0" stroke-width="1.5"/><path d="M7 11 Q17 7 27 11 M7 17 Q17 13 27 17 M7 23 Q17 19 27 23" fill="none" stroke="#D2AE83" stroke-width="1.5"/></svg>
+          <span class="logo-text"><strong>Inter Wood</strong><small>Гомель</small></span>
+        </a>
+        <p class="f-about">Премиальная мебель из массива дуба: обеденные столы и стулья фабрики ПМЦ и собственного производства.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <ul><li><a href="#catalog" data-go="table">Столы из массива</a></li><li><a href="#catalog" data-go="chair">Стулья из дуба</a></li><li><a href="#about">О нас</a></li></ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul><li class="num">+375 (29) 123-45-67</li><li>ТЦ «Мебельный Квартал»</li><li>г. Гомель</li></ul>
+      </div>
+      <div>
+        <h4>Соцсети</h4>
+        <a class="insta" href="https://www.instagram.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+    <div class="f-bottom"><span>© 2026 Inter Wood Гомель</span><span>Прототип сайта. Цены и контакты демонстрационные.</span></div>
+  </div>
+</footer>
+
+<!-- Product modal -->
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" id="modal"></div>
+</div>
+
+<!-- Cart drawer -->
+<div class="drawer-ov" id="drawerOv"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true">
+  <div class="d-head"><h2 id="dTitle">Корзина</h2><button class="close" id="dClose" aria-label="Закрыть корзину">×</button></div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+
+<div class="toast" id="toast" role="status"><span id="toastText"></span><button id="toastAction">Открыть корзину</button></div>
+
+<script>
+(function(){
+/* ============ DATA ============ */
+const COATS = {
+  natural:{name:'Дуб натуральный', base:'#C79A68', light:'#DDBA8C', dark:'#9E7447'},
+  terra:  {name:'Терра',           base:'#9C5A3A', light:'#B7724E', dark:'#6C3A23'},
+  cognac: {name:'Коньяк',          base:'#7B4B2A', light:'#98633C', dark:'#4F2E19'},
+  graphite:{name:'Графит',         base:'#3E3E40', light:'#58585A', dark:'#232325'}
+};
+const COAT_KEYS = Object.keys(COATS);
+const SIZES_RECT  = [{l:'140×80 см',d:0},{l:'160×90 см',d:150},{l:'180×90 см',d:300}];
+const SIZES_ROUND = [{l:'Ø 100 см',d:0},{l:'Ø 110 см',d:150},{l:'Ø 120 см',d:300}];
+
+const PRODUCTS = [
+  {id:'t-typhoon', cat:'table', name:'Тайфун', type:'Обеденный стол', shape:'rect', build:'ext', price:1800, from:true, coat:'natural', legs:'oak', pop:1,
+   desc:'Прямоугольный раздвижной стол из массива дуба. Вставка хранится внутри подстолья, раскладывается за несколько секунд и добавляет 40 см длины.',
+   specs:['Массив дуба','Столешница 40 мм','+40 см вставка']},
+  {id:'t-bio', cat:'table', name:'Био', type:'Обеденный стол', shape:'round', build:'solid', price:1200, from:true, coat:'natural', legs:'pedestal', pop:2,
+   desc:'Круглый цельный стол на центральной опоре. Никаких ножек под коленями: за ним удобно сидеть вчетвером или вшестером.',
+   specs:['Массив дуба','Центральная опора','Цельная столешница']},
+  {id:'c-bio-arm', cat:'chair', name:'Био', type:'Стул с подлокотниками', arms:true, price:787, from:false, coat:'terra', style:'bio', pop:3,
+   desc:'Стул с подлокотниками из массива дуба. Покрытие маслом с воском в оттенке «Терра», мягкое сиденье. Пара к столу «Био».',
+   specs:['Массив дуба','Масло/терра','Подлокотники']},
+  {id:'c-ilona', cat:'chair', name:'Илона Лайт', type:'Стул без подлокотников', arms:false, price:450, from:false, coat:'natural', style:'light', pop:4,
+   desc:'Лёгкий минималистичный стул из массива дуба. Тонкие ножки, изогнутая спинка, мягкое сиденье. Хорошо смотрится в ряд вдоль длинного стола.',
+   specs:['Массив дуба','Минимализм','Без подлокотников']},
+  {id:'t-loft', cat:'table', name:'Лофт', type:'Обеденный стол', shape:'rect', build:'solid', price:1550, from:true, coat:'cognac', legs:'metal', pop:5,
+   desc:'Цельная дубовая столешница на П-образных опорах из чёрного металла. Порошковая покраска, регулируемые подпятники.',
+   specs:['Массив дуба','Чёрный металл','Столешница 40 мм']},
+  {id:'t-scandi', cat:'table', name:'Сканди', type:'Обеденный стол', shape:'round', build:'ext', price:1650, from:true, coat:'natural', legs:'splay', pop:6,
+   desc:'Круглый стол, который раскладывается в овал. Наклонные ножки в скандинавском стиле.',
+   specs:['Массив дуба','Раскладывается в овал','+40 см вставка']},
+  {id:'c-mark', cat:'chair', name:'Марк', type:'Стул без подлокотников', arms:false, price:520, from:false, coat:'graphite', style:'mark', pop:7,
+   desc:'Стул с высокой прямой спинкой и царгами по периметру. Строгий силуэт для столов с металлическим подстольем.',
+   specs:['Массив дуба','Высокая спинка','Без подлокотников']},
+  {id:'c-bruno', cat:'chair', name:'Бруно', type:'Полукресло с подлокотниками', arms:true, price:690, from:false, coat:'cognac', style:'bruno', pop:8,
+   desc:'Полукресло с широкими подлокотниками и мягкой спинкой. Для торца стола или кабинета.',
+   specs:['Массив дуба','Мягкая спинка','Подлокотники']}
+];
+const byId = id => PRODUCTS.find(p=>p.id===id);
+const fmt = n => n.toLocaleString('ru-RU') + ' BYN';
+const sizesFor = p => p.cat==='table' ? (p.shape==='round'?SIZES_ROUND:SIZES_RECT) : null;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============ DRAWINGS (inline SVG) ============ */
+let uid = 0;
+function woodDefs(c){
+  const id = 'w'+(++uid), C = COATS[c];
+  return {id, defs:
+   `<linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.light}"/><stop offset="1" stop-color="${C.base}"/></linearGradient>
+    <linearGradient id="${id}v" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${C.base}"/><stop offset=".5" stop-color="${C.light}"/><stop offset="1" stop-color="${C.dark}"/></linearGradient>
+    <pattern id="${id}p" width="60" height="6" patternUnits="userSpaceOnUse"><path d="M0 2 Q15 1 30 2.4 T60 2" stroke="${C.dark}" stroke-opacity=".28" stroke-width=".7" fill="none"/><path d="M0 4.6 Q20 5.4 38 4.4 T60 4.8" stroke="${C.dark}" stroke-opacity=".16" stroke-width=".6" fill="none"/></pattern>`};
+}
+const METAL = '#141516';
+
+// Table centred in a 400×300 box; floor at y=262
+function tableBody(p, c){
+  const w = woodDefs(c), C = COATS[c]; let s = '';
+  const top = (x,y,wd,h,r)=>`<rect x="${x}" y="${y}" width="${wd}" height="${h}" rx="${r}" fill="url(#${w.id}g)"/><rect x="${x}" y="${y}" width="${wd}" height="${h}" rx="${r}" fill="url(#${w.id}p)"/><rect x="${x}" y="${y+h-2}" width="${wd}" height="2" fill="${C.dark}" opacity=".45"/>`;
+  s += `<ellipse cx="200" cy="264" rx="${p.shape==='round'?120:160}" ry="7" fill="#000" opacity=".08"/>`;
+  if(p.legs==='oak'){
+    s += top(52,112,296,18,2);
+    s += `<rect x="72" y="130" width="256" height="18" fill="${C.base}"/><rect x="72" y="130" width="256" height="18" fill="url(#${w.id}p)"/><rect x="72" y="146" width="256" height="2" fill="${C.dark}" opacity=".4"/>`;
+    s += `<polygon points="76,130 96,130 93,262 80,262" fill="url(#${w.id}v)"/><polygon points="304,130 324,130 320,262 307,262" fill="url(#${w.id}v)"/>`;
+  } else if(p.legs==='metal'){
+    s += top(46,116,308,18,2);
+    [[74],[296]].forEach(([x])=>{s += `<path d="M${x} 134 V262 M${x+30} 134 V262 M${x-2} 136 H${x+32}" stroke="${METAL}" stroke-width="7" fill="none"/><rect x="${x-5}" y="258" width="40" height="5" fill="${METAL}"/>`;});
+  } else if(p.legs==='pedestal'){
+    s += top(84,118,232,18,9);
+    s += `<rect x="112" y="136" width="176" height="10" fill="${C.dark}" opacity=".55"/>`;
+    s += `<polygon points="186,146 214,146 210,240 190,240" fill="url(#${w.id}v)"/>`;
+    s += `<path d="M126 256 Q160 240 190 238 H210 Q240 240 274 256 Z" fill="url(#${w.id}v)"/><rect x="122" y="254" width="156" height="8" rx="2" fill="${C.base}"/>`;
+  } else if(p.legs==='splay'){
+    s += top(78,118,244,18,9);
+    s += `<rect x="104" y="136" width="192" height="14" fill="${C.base}"/><rect x="104" y="148" width="192" height="2" fill="${C.dark}" opacity=".4"/>`;
+    s += `<polygon points="112,136 128,136 104,262 92,262" fill="url(#${w.id}v)"/><polygon points="272,136 288,136 308,262 296,262" fill="url(#${w.id}v)"/>`;
+    s += `<polygon points="176,150 188,150 184,262 174,262" fill="${C.dark}" opacity=".55"/><polygon points="212,150 224,150 226,262 216,262" fill="${C.dark}" opacity=".55"/>`;
+  }
+  if(p.build==='ext'){ const y = p.legs==='oak'?112:118; s += `<line x1="200" y1="${y+1}" x2="200" y2="${y+16}" stroke="${C.dark}" stroke-width="1.2" opacity=".7"/>`; }
+  return {defs:w.defs, body:s};
+}
+
+// Chair in side profile, 400×300 box; floor at y=262. dir=1 faces right
+function chairBody(p, c){
+  const w = woodDefs(c), C = COATS[c]; let s='';
+  const st = p.style;
+  const seatY = 168, backTop = st==='mark'?52:st==='light'?78:st==='bruno'?72:74;
+  const cushion = c==='graphite'? '#8C8A86' : '#D9D2C7';
+  s += `<ellipse cx="200" cy="264" rx="84" ry="6" fill="#000" opacity=".08"/>`;
+  // back leg + back post (slight rake)
+  s += `<polygon points="146,${backTop} 158,${backTop} 162,${seatY} 150,262 139,262 150,${seatY}" fill="url(#${w.id}v)"/>`;
+  // back rest
+  if(st==='bruno'){
+    s += `<path d="M150 ${backTop+2} Q138 ${backTop+40} 150 ${seatY-6} L162 ${seatY-6} Q150 ${backTop+40} 162 ${backTop+2} Z" fill="${cushion}"/>`;
+  } else if(st==='mark'){
+    s += `<rect x="156" y="${backTop+6}" width="8" height="${seatY-backTop-18}" fill="${C.dark}" opacity=".6"/>`;
+  } else {
+    s += `<path d="M156 ${backTop+4} Q168 ${backTop+22} 160 ${backTop+50}" stroke="${C.dark}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  }
+  // seat frame + cushion
+  s += `<rect x="150" y="${seatY}" width="118" height="12" fill="${C.base}"/><rect x="150" y="${seatY}" width="118" height="12" fill="url(#${w.id}p)"/>`;
+  s += `<rect x="152" y="${seatY-9}" width="112" height="11" rx="5" fill="${cushion}"/>`;
+  // front leg
+  const fl = st==='light' ? `<polygon points="252,${seatY+12} 264,${seatY+12} 266,262 257,262" fill="url(#${w.id}v)"/>` : `<rect x="254" y="${seatY+12}" width="12" height="${262-seatY-12}" fill="url(#${w.id}v)"/>`;
+  s += fl;
+  // stretcher
+  if(st!=='light') s += `<rect x="150" y="226" width="108" height="6" fill="${C.dark}" opacity=".7"/>`;
+  // arms
+  if(p.arms){
+    const ay = seatY-46, aw = st==='bruno'?10:7;
+    s += `<rect x="152" y="${ay}" width="${st==='bruno'?118:112}" height="${aw}" rx="3" fill="url(#${w.id}g)"/>`;
+    s += `<rect x="246" y="${ay+aw}" width="8" height="${seatY-ay-aw-9}" fill="${C.base}"/>`;
+  }
+  return {defs:w.defs, body:s};
+}
+
+function productSVG(p, c, vb){
+  const r = p.cat==='table' ? tableBody(p,c) : chairBody(p,c);
+  const view = vb || (p.cat==='table' ? '20 40 360 250' : '60 30 280 250');
+  return `<svg viewBox="${view}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(p.type+' '+p.name+', '+COATS[c].name)}"><defs>${r.defs}</defs>${r.body}</svg>`;
+}
+
+function heroSVG(){
+  const t = byId('t-typhoon'), ch = byId('c-ilona');
+  const T = tableBody(t,'natural'), L = chairBody(ch,'natural'), R = chairBody(ch,'natural');
+  return `<svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>${T.defs}${L.defs}${R.defs}</defs>
+    <rect x="0" y="392" width="600" height="108" fill="#ECE8E1"/>
+    <line x1="0" y1="392" x2="600" y2="392" stroke="#E2DDD4"/>
+    <g stroke="#232528" stroke-width="1.4" fill="none" opacity=".9"><line x1="300" y1="0" x2="300" y2="120"/><path d="M270 120 H330 L318 150 H282 Z" fill="#141516"/></g>
+    <ellipse cx="300" cy="170" rx="80" ry="24" fill="#FFF6E6" opacity=".55"/>
+    <g transform="translate(-60 152) scale(1.14)">${L.body}</g>
+    <g transform="translate(660 152) scale(-1.14 1.14)">${R.body}</g>
+    <g transform="translate(40 94) scale(1.3)">${T.body}</g>
+  </svg>`;
+}
+
+/* ============ STATE ============ */
+const filt = {cat:'all', shape:'any', build:'any', arms:'any', sort:'pop'};
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem('iw-cart')||'[]'); if(!Array.isArray(cart)) cart=[]; }catch(e){ cart=[]; }
+cart = cart.filter(i=>byId(i.id));
+const saveCart = ()=>{ try{ localStorage.setItem('iw-cart', JSON.stringify(cart)); }catch(e){} };
+
+/* ============ CATALOG ============ */
+const $ = s => document.querySelector(s);
+const catsEl = $('#cats'), paramsEl = $('#params'), grid = $('#grid');
+
+function renderCats(){
+  const counts = {all:PRODUCTS.length, table:PRODUCTS.filter(p=>p.cat==='table').length, chair:PRODUCTS.filter(p=>p.cat==='chair').length};
+  catsEl.innerHTML = [['all','Все'],['table','Столы из массива'],['chair','Стулья из дуба']]
+    .map(([k,l])=>`<button class="cat" data-cat="${k}" aria-pressed="${filt.cat===k}">${l}<span class="c">${counts[k]}</span></button>`).join('');
+}
+function seg(key, opts){
+  return `<div class="seg" role="group">${opts.map(([v,l])=>`<button data-k="${key}" data-v="${v}" aria-pressed="${filt[key]===v}">${l}</button>`).join('')}</div>`;
+}
+function renderParams(){
+  let h = '';
+  if(filt.cat==='table'){
+    h += `<div class="pgroup"><span>Форма</span>${seg('shape',[['any','Любая'],['round','Круглый'],['rect','Прямоугольный']])}</div>`;
+    h += `<div class="pgroup"><span>Конструкция</span>${seg('build',[['any','Любая'],['ext','Раздвижной'],['solid','Цельный']])}</div>`;
+  } else if(filt.cat==='chair'){
+    h += `<div class="pgroup"><span>Тип</span>${seg('arms',[['any','Любой'],['yes','С подлокотниками'],['no','Без подлокотников']])}</div>`;
+  } else {
+    h += `<span class="params-hint">Выберите «Столы» или «Стулья», чтобы открыть фильтр по форме, конструкции и типу.</span>`;
+  }
+  const active = filt.shape!=='any'||filt.build!=='any'||filt.arms!=='any';
+  if(active) h += `<button class="reset" id="resetF">Сбросить параметры</button>`;
+  paramsEl.innerHTML = h;
+}
+function filtered(){
+  let list = PRODUCTS.filter(p=>{
+    if(filt.cat!=='all' && p.cat!==filt.cat) return false;
+    if(p.cat==='table' && filt.cat==='table'){
+      if(filt.shape!=='any' && p.shape!==filt.shape) return false;
+      if(filt.build!=='any' && p.build!==filt.build) return false;
+    }
+    if(p.cat==='chair' && filt.cat==='chair'){
+      if(filt.arms==='yes' && !p.arms) return false;
+      if(filt.arms==='no' && p.arms) return false;
+    }
+    return true;
+  });
+  if(filt.sort==='asc') list.sort((a,b)=>a.price-b.price);
+  else if(filt.sort==='desc') list.sort((a,b)=>b.price-a.price);
+  else list.sort((a,b)=>a.pop-b.pop);
+  return list;
+}
+function plural(n,[a,b,c]){const m=n%10,h=n%100;return (m===1&&h!==11)?a:(m>=2&&m<=4&&(h<12||h>14))?b:c;}
+function renderGrid(){
+  const list = filtered();
+  $('#resultCount').textContent = `Найдено: ${list.length} ${plural(list.length,['модель','модели','моделей'])}`;
+  if(!list.length){
+    grid.innerHTML = `<div class="empty"><p>Под такие параметры моделей пока нет. Мы можем изготовить стол под ваш размер.</p><button class="btn btn-ghost" id="emptyReset">Сбросить параметры</button></div>`;
+    return;
+  }
+  grid.innerHTML = list.map((p,i)=>{
+    const badge = p.cat==='table' ? (p.build==='ext'?'Раздвижной':'Цельный') : (p.arms?'С подлокотниками':'Без подлокотников');
+    return `<button class="card" data-id="${p.id}" style="animation-delay:${i*50}ms" aria-label="${esc(p.type+' '+p.name+', '+(p.from?'от ':'')+fmt(p.price))}">
+      <div class="card-img">${productSVG(p,p.coat)}<span class="badge">${badge}</span><span class="card-open">Выбрать размер и цвет →</span></div>
+      <div class="card-body">
+        <span class="type">${esc(p.type)}</span>
+        <h3>«${esc(p.name)}»</h3>
+        <span class="price num">${p.from?'<small>от</small>':''}${fmt(p.price)}</span>
+        <div class="specs">${p.specs.map(s=>`<span>${esc(s)}</span>`).join('')}</div>
+        <div class="swatches" aria-hidden="true">${COAT_KEYS.map(k=>`<i style="background:${COATS[k].base}"></i>`).join('')}</div>
+      </div></button>`;
+  }).join('');
+}
+function renderCatalog(){ renderCats(); renderParams(); renderGrid(); }
+
+catsEl.addEventListener('click',e=>{
+  const b = e.target.closest('[data-cat]'); if(!b) return;
+  filt.cat = b.dataset.cat; filt.shape=filt.build=filt.arms='any'; renderCatalog();
+});
+paramsEl.addEventListener('click',e=>{
+  if(e.target.id==='resetF'){ filt.shape=filt.build=filt.arms='any'; renderCatalog(); return; }
+  const b = e.target.closest('[data-k]'); if(!b) return;
+  filt[b.dataset.k] = b.dataset.v; renderParams(); renderGrid();
+});
+grid.addEventListener('click',e=>{
+  if(e.target.id==='emptyReset'){ filt.shape=filt.build=filt.arms='any'; renderCatalog(); return; }
+  const c = e.target.closest('.card'); if(c) openProduct(c.dataset.id);
+});
+$('#sort').addEventListener('change',e=>{ filt.sort=e.target.value; renderGrid(); });
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>{
+  filt.cat = a.dataset.go; filt.shape=filt.build=filt.arms='any'; renderCatalog(); closeMobile();
+}));
+
+/* ============ PRODUCT MODAL ============ */
+const overlay = $('#overlay'), modal = $('#modal');
+let cur = null, lastFocus = null;
+
+function openProduct(id){
+  const p = byId(id); if(!p) return;
+  cur = {p, size:0, coat:p.coat, qty:1, oneclick:false};
+  lastFocus = document.activeElement;
+  renderModal();
+  overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
+  document.body.classList.add('locked');
+  setTimeout(()=>modal.querySelector('.close').focus(),50);
+}
+function unitPrice(p,size){ const s = sizesFor(p); return p.price + (s? s[size].d : 0); }
+function renderModal(){
+  const {p,size,coat,qty} = cur, sizes = sizesFor(p);
+  const unit = unitPrice(p,size);
+  modal.innerHTML = `
+    <button class="close" data-act="close" aria-label="Закрыть">×</button>
+    <div class="m-visual" id="mVisual">${productSVG(p,coat)}<span class="badge">${esc(p.specs[0])}</span><span class="m-coat-name">Покрытие: ${COATS[coat].name}</span></div>
+    <div class="m-info">
+      <div>
+        <div class="type">${esc(p.type)}</div>
+        <h2 id="mTitle">«${esc(p.name)}»</h2>
+      </div>
+      <p class="m-desc">${esc(p.desc)}</p>
+      ${sizes?`<div class="opt"><h4>Размер столешницы <em>${sizes[size].l}</em></h4>
+        <div class="sizes" role="radiogroup" aria-label="Размер">${sizes.map((s,i)=>`<button class="size" role="radio" aria-checked="${i===size}" data-size="${i}"><b>${s.l}</b><small>${s.d?'+'+fmt(s.d):'базовая цена'}</small></button>`).join('')}</div></div>`:''}
+      <div class="opt"><h4>Цвет покрытия <em>${COATS[coat].name}</em></h4>
+        <div class="coats" role="radiogroup" aria-label="Цвет покрытия">${COAT_KEYS.map(k=>`<button class="coat" role="radio" aria-checked="${k===coat}" data-coat="${k}"><i style="background:linear-gradient(135deg,${COATS[k].light},${COATS[k].base} 55%,${COATS[k].dark})"></i>${COATS[k].name}</button>`).join('')}</div></div>
+      <div class="buy">
+        <div class="buy-top">
+          <div class="total"><span id="mTotal">${fmt(unit*qty)}</span><small>${qty>1?`${qty} × ${fmt(unit)}`:'цена за 1 шт.'}${sizes?' · '+sizes[size].l:''}</small></div>
+          <div class="qty" aria-label="Количество"><button data-act="minus" aria-label="Меньше">−</button><output>${qty}</output><button data-act="plus" aria-label="Больше">+</button></div>
+        </div>
+        <div class="buy-btns">
+          <button class="btn btn-dark" data-act="add">Добавить в корзину</button>
+          <button class="btn btn-ghost" data-act="oneclick" aria-expanded="${cur.oneclick}">Заказ в 1 клик</button>
+        </div>
+        ${cur.oneclick?oneClickHTML():''}
+      </div>
+    </div>`;
+}
+function oneClickHTML(){
+  if(cur.done) return `<div class="success"><h4>Заявка принята</h4><p>Перезвоним на ${esc(cur.done)} и уточним детали заказа. Это прототип, поэтому заявка никуда не отправлена.</p></div>`;
+  return `<form class="oneclick" id="ocForm" novalidate>
+    <div class="row2">
+      <div class="field"><label for="ocPhone">Телефон для связи</label><input id="ocPhone" type="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__"><span class="err">Укажите номер полностью</span></div>
+      <button class="btn btn-oak" type="submit">Жду звонка</button>
+    </div>
+    <p class="note">Менеджер перезвонит и подтвердит размер, цвет и срок изготовления.</p>
+  </form>`;
+}
+modal.addEventListener('click',e=>{
+  const t = e.target.closest('button'); if(!t) return;
+  if(t.dataset.size!==undefined){ cur.size=+t.dataset.size; renderModal(); flashTotal(); return; }
+  if(t.dataset.coat){ cur.coat=t.dataset.coat; renderModal(); return; }
+  switch(t.dataset.act){
+    case 'close': closeProduct(); break;
+    case 'minus': if(cur.qty>1){cur.qty--; renderModal();} break;
+    case 'plus': if(cur.qty<20){cur.qty++; renderModal();} break;
+    case 'add':
+      addToCart(cur.p.id,cur.size,cur.coat,cur.qty);
+      closeProduct();
+      toast(`«${cur.p.name}» добавлен в корзину`);
+      break;
+    case 'oneclick': cur.oneclick=!cur.oneclick; cur.done=null; renderModal(); if(cur.oneclick) setTimeout(()=>{const i=$('#ocPhone'); i&&i.focus();},30); break;
+  }
+});
+modal.addEventListener('submit',e=>{
+  if(e.target.id!=='ocForm') return;
+  e.preventDefault();
+  const inp = $('#ocPhone');
+  if(!validPhone(inp.value)){ inp.parentElement.classList.add('bad'); inp.focus(); return; }
+  cur.done = inp.value.trim(); renderModal();
+});
+modal.addEventListener('input',e=>{ if(e.target.id==='ocPhone') e.target.parentElement.classList.remove('bad'); });
+function flashTotal(){ const el=$('#mTotal'); if(!el) return; el.animate([{color:'#8E6238'},{color:'#232528'}],{duration:600}); }
+function closeProduct(){
+  overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true');
+  if(!$('#drawer').classList.contains('open')) document.body.classList.remove('locked');
+  lastFocus && lastFocus.focus && lastFocus.focus();
+}
+overlay.addEventListener('click',e=>{ if(e.target===overlay) closeProduct(); });
+
+/* ============ CART ============ */
+const drawer = $('#drawer'), dOv = $('#drawerOv');
+let orderDone = false;
+function keyOf(i){ return i.id+'|'+i.size+'|'+i.coat; }
+function addToCart(id,size,coat,qty){
+  const ex = cart.find(i=>keyOf(i)===id+'|'+size+'|'+coat);
+  if(ex) ex.qty = Math.min(99, ex.qty+qty); else cart.push({id,size,coat,qty});
+  orderDone = false; saveCart(); renderCart();
+}
+function cartTotal(){ return cart.reduce((s,i)=>s+unitPrice(byId(i.id),i.size)*i.qty,0); }
+function renderCart(){
+  const n = cart.reduce((s,i)=>s+i.qty,0);
+  $('#cartCount').textContent = n;
+  const body = $('#dBody'), foot = $('#dFoot');
+  if(orderDone){
+    body.innerHTML = `<div class="success" style="margin-top:20px"><h4>Заказ оформлен</h4><p>Спасибо! Менеджер свяжется с вами для подтверждения. В прототипе заказ никуда не отправляется.</p></div>`;
+    foot.innerHTML = `<button class="btn btn-ghost" style="width:100%" data-act="dclose">Вернуться в каталог</button>`;
+    return;
+  }
+  if(!cart.length){
+    body.innerHTML = `<div class="d-empty"><svg viewBox="0 0 120 80" aria-hidden="true"><rect x="10" y="30" width="100" height="8" fill="#EADCC8"/><rect x="20" y="38" width="6" height="40" fill="#D8C3A5"/><rect x="94" y="38" width="6" height="40" fill="#D8C3A5"/></svg><p>В корзине пока пусто.<br>Выберите стол или стулья в каталоге.</p></div>`;
+    foot.innerHTML = `<button class="btn btn-dark" style="width:100%" data-act="tocat">Перейти в каталог</button>`;
+    return;
+  }
+  body.innerHTML = cart.map((i,idx)=>{
+    const p = byId(i.id), s = sizesFor(p), unit = unitPrice(p,i.size);
+    return `<div class="ci">
+      <div class="ci-img">${productSVG(p,i.coat)}</div>
+      <div><h4>${esc(p.type)} «${esc(p.name)}»</h4><p>${s?s[i.size].l+' · ':''}${COATS[i.coat].name}</p>
+        <div class="qty"><button data-ci="${idx}" data-d="-1" aria-label="Меньше">−</button><output>${i.qty}</output><button data-ci="${idx}" data-d="1" aria-label="Больше">+</button></div></div>
+      <div class="ci-right"><b>${fmt(unit*i.qty)}</b><button class="rm" data-rm="${idx}">Удалить</button></div>
+    </div>`;
+  }).join('') + `
+    <form class="d-form" id="orderForm" novalidate>
+      <h4 class="eyebrow" style="margin:6px 0 14px">Оформление заявки</h4>
+      <div class="field"><label for="oName">Имя</label><input id="oName" autocomplete="name" placeholder="Как к вам обращаться"><span class="err">Укажите имя</span></div>
+      <div class="field"><label for="oPhone">Телефон</label><input id="oPhone" type="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__"><span class="err">Укажите номер полностью</span></div>
+      <div class="field"><label for="oDel">Получение</label><select id="oDel"><option>Доставка по Гомелю</option><option>Доставка по области</option><option>Самовывоз из ТЦ «Мебельный Квартал»</option></select></div>
+    </form>`;
+  foot.innerHTML = `<div class="sum"><span>Итого, ${n} ${plural(n,['товар','товара','товаров'])}</span><b>${fmt(cartTotal())}</b></div>
+    <button class="btn btn-dark" style="width:100%" type="submit" form="orderForm">Оформить заявку</button>
+    <p class="note" style="text-align:center">Оплата после подтверждения заказа менеджером</p>`;
+}
+$('#dBody').addEventListener('click',e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  if(b.dataset.ci!==undefined){ const i=cart[+b.dataset.ci]; i.qty+= +b.dataset.d; if(i.qty<1) cart.splice(+b.dataset.ci,1); saveCart(); renderCart(); }
+  if(b.dataset.rm!==undefined){ cart.splice(+b.dataset.rm,1); saveCart(); renderCart(); }
+});
+$('#dBody').addEventListener('input',e=>{ e.target.parentElement.classList.remove('bad'); });
+document.addEventListener('submit',e=>{
+  if(e.target.id!=='orderForm') return;
+  e.preventDefault();
+  const n=$('#oName'), ph=$('#oPhone'); let ok=true;
+  if(!n.value.trim()){ n.parentElement.classList.add('bad'); ok=false; }
+  if(!validPhone(ph.value)){ ph.parentElement.classList.add('bad'); ok=false; }
+  if(!ok) return;
+  cart=[]; saveCart(); orderDone=true; renderCart();
+});
+$('#dFoot').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.act==='tocat'||b.dataset.act==='dclose'){ closeCart(); orderDone=false; renderCart(); if(b.dataset.act==='tocat') location.hash='catalog', document.getElementById('catalog').scrollIntoView(); }
+});
+function openCart(){ drawer.classList.add('open'); dOv.classList.add('open'); drawer.setAttribute('aria-hidden','false'); document.body.classList.add('locked'); setTimeout(()=>$('#dClose').focus(),60); }
+function closeCart(){ drawer.classList.remove('open'); dOv.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); if(!overlay.classList.contains('open')) document.body.classList.remove('locked'); }
+$('#cartBtn').addEventListener('click',openCart);
+$('#dClose').addEventListener('click',closeCart);
+dOv.addEventListener('click',closeCart);
+
+/* ============ MISC ============ */
+function validPhone(v){ return v.replace(/\D/g,'').length>=9; }
+let tt;
+function toast(msg){ $('#toastText').textContent=msg; const t=$('#toast'); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),3800); }
+$('#toastAction').addEventListener('click',()=>{ $('#toast').classList.remove('show'); openCart(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(overlay.classList.contains('open')) closeProduct(); else if(drawer.classList.contains('open')) closeCart(); } });
+
+const burger=$('#burger'), mnav=$('#mobileNav');
+burger.addEventListener('click',()=>{ const o=mnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o); });
+function closeMobile(){ mnav.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobile));
+
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+  const done=()=>{ b.textContent='Скопировано'; setTimeout(()=>b.textContent='Копировать',1600); };
+  try{ navigator.clipboard.writeText(b.dataset.copy).then(done,()=>selectText()); }catch(e){ selectText(); }
+  function selectText(){ const r=document.createRange(); r.selectNodeContents($('#phoneText')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+}));
+
+$('#quickForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const ph=$('#qPhone');
+  if(!validPhone(ph.value)){ ph.parentElement.classList.add('bad'); ph.focus(); return; }
+  e.target.outerHTML = `<div class="success"><h4>Спасибо${$('#qName').value.trim()?', '+esc($('#qName').value.trim()):''}!</h4><p>Заявка принята. Перезвоним на ${esc(ph.value.trim())}. Это прототип, поэтому заявка никуда не отправлена.</p></div>`;
+});
+$('#qPhone').addEventListener('input',e=>e.target.parentElement.classList.remove('bad'));
+
+/* ============ INIT ============ */
+$('#heroVisual').insertAdjacentHTML('afterbegin', heroSVG());
+renderCatalog();
+renderCart();
+})();
+</script>
+</body>
+</html>
