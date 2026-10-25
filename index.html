@@ -317,6 +317,11 @@ footer .logo-text small{color:#D2AE83}
 .qty output{min-width:34px;display:grid;place-items:center;font-variant-numeric:tabular-nums;font-weight:500}
 .buy-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .buy-btns .btn{padding-inline:12px}
+.perks{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
+.perks li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--graphite-2);line-height:1.45}
+.perks svg{width:20px;height:20px;margin-top:1px;stroke:var(--oak-deep);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.perks b{display:block;font-weight:500;color:var(--graphite);font-size:14.5px}
+.perks .ok b{color:var(--ok)}
 .oneclick{background:var(--stone);padding:18px}
 .oneclick .row2{align-items:end}
 .oneclick .field{margin-bottom:0}
@@ -1158,7 +1163,18 @@ function renderModal(){
         </div>
         ${cur.oneclick?oneClickHTML():''}
       </div>
+      ${perksHTML()}
     </div>`;
+}
+function perksHTML(){
+  const ic = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+  const rows = [
+    ['ok', ic('<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/>'), 'Наличие и срок изготовления', 'уточняйте у менеджера'],
+    ['', ic('<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>'), 'Доставка по всей Беларуси', 'по Гомелю бесплатно при заказе стола со стульями'],
+    ['', ic('<path d="M4 10l8-5 8 5v9H4z"/><path d="M10 19v-5h4v5"/>'), 'Самовывоз и шоурум', 'ТЦ «Мебельный Квартал», г. Гомель. Образцы покрытий можно посмотреть вживую'],
+    ['', ic('<path d="M14.5 5.5a3.5 3.5 0 0 0-4.6 4.6L4 16v4h4l5.9-5.9a3.5 3.5 0 0 0 4.6-4.6l-2.3 2.3-2.4-.6-.6-2.4z"/>'), 'Простая сборка', 'в комплекте инструменты и подробная инструкция']
+  ];
+  return `<ul class="perks">${rows.map(r=>`<li class="${r[0]}">${r[1]}<div><b>${r[2]}</b>${r[3]}</div></li>`).join('')}</ul>`;
 }
 function oneClickHTML(){
   if(cur.done) return `<div class="success"><h4>Заявка принята</h4><p>Перезвоним на ${esc(cur.done)} и уточним детали заказа. Это прототип, поэтому заявка никуда не отправлена.</p></div>`;
