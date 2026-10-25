@@ -55,10 +55,27 @@ header.site .wrap{display:flex;align-items:center;gap:32px;height:72px}
 .logo-text strong{font-family:var(--display);font-weight:400;font-size:21px;letter-spacing:.06em;text-transform:uppercase}
 .logo-text small{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--oak-deep)}
 nav.main{display:flex;gap:28px;margin-left:auto}
-nav.main a{text-decoration:none;font-size:15px;color:var(--graphite-2);position:relative;padding-block:6px}
-nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--oak);transition:right .3s}
-nav.main a:hover{color:var(--graphite)}
-nav.main a:hover::after{right:0}
+nav.main>a,.dd-btn{text-decoration:none;font-size:15px;color:var(--graphite-2);position:relative;padding-block:6px}
+nav.main>a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--oak);transition:right .3s}
+nav.main>a:hover,.dd-btn:hover,.dd.open .dd-btn{color:var(--graphite)}
+nav.main>a:hover::after{right:0}
+nav.main{align-items:center}
+.dd{position:relative}
+.dd-btn{border:0;background:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.dd-btn svg{width:12px;height:12px;transition:transform .2s}
+.dd.open .dd-btn svg{transform:rotate(180deg)}
+.dd-menu{position:absolute;top:calc(100% + 18px);left:-18px;min-width:280px;background:#fff;border:1px solid var(--line);box-shadow:0 20px 44px rgba(20,21,22,.08);padding:8px;display:none;z-index:50}
+.dd-menu::before{content:"";position:absolute;left:0;right:0;top:-20px;height:20px}
+.dd.open .dd-menu{display:grid}
+.dd-menu a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:2px 16px;padding:11px 12px;text-decoration:none;color:var(--graphite);font-size:15px}
+.dd-menu a:hover,.dd-menu a:focus-visible{background:var(--stone)}
+.dd-menu a small{grid-column:1;color:var(--muted);font-size:12.5px}
+.dd-menu a .c{grid-row:1/3;grid-column:2;align-self:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.dd-menu a.all{border-top:1px solid var(--line);margin-top:4px;color:var(--oak-deep);font-size:14px}
+.m-group{border-bottom:1px solid var(--line);padding:14px var(--gutter) 6px}
+.m-group>span{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mobile-nav .m-group a{border:0;padding:10px 0 10px 12px;font-size:16px;display:flex;justify-content:space-between}
+.mobile-nav .m-group a .c{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .h-contact{display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}
 .h-contact .phone{font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;user-select:all}
 .h-contact small{font-size:12px;color:var(--muted)}
@@ -95,8 +112,24 @@ nav.main a:hover::after{right:0}
 .hero-visual svg{position:absolute;inset:0;width:100%;height:100%}
 .hero-tag{position:absolute;background:#fff;padding:10px 14px;font-size:13px;line-height:1.35;border:1px solid var(--line)}
 .hero-tag b{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--oak-deep)}
-.hero-tag.t1{top:7%;left:6%}
-.hero-tag.t2{bottom:8%;right:6%}
+.hero-tag.t1{top:6%;left:6%;text-align:left;color:var(--graphite);font:inherit;font-size:13px;cursor:pointer;display:flex;flex-direction:column;gap:2px;max-width:calc(88% - 12px);transition:opacity .4s,transform .4s;z-index:2}
+.hero-tag.t1.swap{opacity:0;transform:translateY(-4px)}
+.hero-tag .hs-more{font-size:12px;color:var(--oak-deep);margin-top:4px}
+.hero-tag.t1:hover{border-color:var(--graphite)}
+.hs-track{position:absolute;inset:0}
+.hs-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hs-slide.on{opacity:1}
+.hs-slide img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 7s linear}
+.hs-slide.on img{transform:scale(1.08)}
+.hs-bar{position:absolute;left:6%;right:6%;bottom:5%;display:flex;gap:6px;z-index:2}
+.hs-bar button{flex:1;height:20px;border:0;background:none;padding:0;position:relative;cursor:pointer}
+.hs-bar button::before,.hs-bar button i{content:"";position:absolute;left:0;top:9px;height:2px;border-radius:1px}
+.hs-bar button::before{right:0;background:rgba(255,255,255,.5)}
+.hs-bar button i{width:0;background:#fff}
+.hs-bar button.done i{width:100%}
+.hs-bar button.on i{animation:hsfill var(--hs-dur,6s) linear forwards}
+.hero-visual.paused .hs-bar button.on i{animation-play-state:paused}
+@keyframes hsfill{to{width:100%}}
 .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(40px,5vw,72px)}
 .fact{padding:22px 24px 22px 0;display:flex;gap:14px;align-items:baseline}
 .fact+.fact{padding-left:24px;border-left:1px solid var(--line)}
@@ -132,7 +165,10 @@ section.block{padding-block:clamp(56px,7vw,110px)}
 .card-img{position:relative;background:var(--stone);aspect-ratio:4/3.4;max-width:100%;overflow:hidden;transition:background .3s}
 .card-img svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .card:hover .card-img{background:var(--stone-2)}
-.card:hover .card-img svg{transform:scale(1.04)}
+.card:hover .card-img svg,.card:hover .card-img .photo{transform:scale(1.04)}
+.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:5%;mix-blend-mode:multiply;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.has-photo>svg{visibility:hidden}
+.photo.cover{object-fit:cover;padding:0;mix-blend-mode:normal}
 .badge{position:absolute;top:14px;left:14px;background:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;color:var(--graphite-2)}
 .card-open{position:absolute;right:14px;bottom:14px;background:var(--graphite);color:#fff;font-size:13px;padding:8px 12px;opacity:0;transform:translateY(6px);transition:all .3s}
 .card:hover .card-open,.card:focus-visible .card-open{opacity:1;transform:none}
@@ -140,6 +176,7 @@ section.block{padding-block:clamp(56px,7vw,110px)}
 .card-body h3{font-size:24px;line-height:1.15}
 .card-body .type{grid-column:1/-1;font-size:13px;color:var(--muted);order:-1}
 .card-body .price{font-size:17px;font-weight:600;white-space:nowrap}
+.card-body .price.ask{font-weight:500;font-size:14px;color:var(--oak-deep)}
 .card-body .price small{font-weight:400;color:var(--muted);font-size:13px;margin-right:3px}
 .specs{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .specs span{font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);padding:3px 8px;color:var(--graphite-2)}
@@ -212,7 +249,22 @@ footer .logo-text small{color:#D2AE83}
 .m-visual{background:var(--stone);position:relative;min-height:420px}
 .m-visual svg{position:absolute;inset:0;width:100%;height:100%}
 .m-visual .badge{top:18px;left:18px}
-.m-coat-name{position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:12px;color:var(--graphite-2)}
+.m-coat-name{position:absolute;left:18px;bottom:18px;font-family:var(--mono);font-size:12px;color:var(--graphite-2);z-index:1}
+.m-media{display:flex;flex-direction:column;background:var(--stone);min-width:0}
+.m-media .m-visual{flex:1}
+.gimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:5%;mix-blend-mode:multiply}
+.gimg.cover{object-fit:cover;padding:0;mix-blend-mode:normal}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);z-index:2;font-size:18px;line-height:1;display:grid;place-items:center;transition:border-color .2s}
+.g-nav:hover{border-color:var(--graphite)}
+.g-prev{left:14px}
+.g-next{right:14px}
+.g-count{position:absolute;right:18px;bottom:18px;font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.92);padding:3px 8px;z-index:2;font-variant-numeric:tabular-nums}
+.m-thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto;border-top:1px solid var(--line);scrollbar-width:thin}
+.m-thumbs button{flex:0 0 64px;height:64px;border:1px solid var(--line);padding:0;background:#fff;position:relative;overflow:hidden;opacity:.72;transition:opacity .2s,border-color .2s}
+.m-thumbs button:hover{opacity:1}
+.m-thumbs button[aria-current="true"]{border-color:var(--graphite);opacity:1;box-shadow:inset 0 0 0 1px var(--graphite)}
+.m-thumbs button>img{width:100%;height:100%;object-fit:cover;display:block}
+.m-thumbs .th0 svg{position:absolute;inset:0;width:100%;height:100%}
 .m-info{padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;gap:22px}
 .m-info h2{font-size:clamp(30px,3vw,40px);line-height:1.05}
 .m-info .type{font-size:14px;color:var(--muted);margin-bottom:6px}
@@ -226,6 +278,30 @@ footer .logo-text small{color:#D2AE83}
 .size:hover{border-color:var(--graphite-2)}
 .size[aria-checked="true"]{border-color:var(--graphite);background:var(--graphite);color:#fff}
 .size[aria-checked="true"] small{color:#CFCBC4}
+.size:disabled{opacity:.45;cursor:not-allowed}
+.sizes.many{grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}
+.opt-note{margin:10px 0 0}
+.fab-current{display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:2px;text-align:left;transition:border-color .2s}
+.fab-current:hover{border-color:var(--graphite-2)}
+.fab-current i{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);flex:none}
+.fab-current span{flex:1;font-size:15px;line-height:1.3}
+.fab-current small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.fab-current b{font-weight:500;font-size:13px;color:var(--oak-deep);white-space:nowrap}
+.fab-panel{border:1px solid var(--line);border-top:0;padding:14px;background:var(--stone)}
+.fab-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.fab-tabs button{height:34px;padding:0 12px;border:1px solid var(--line);background:#fff;font-size:13px;border-radius:2px}
+.fab-tabs button small{color:var(--muted);font-size:11.5px;margin-left:2px}
+.fab-tabs button[aria-pressed="true"]{background:var(--graphite);border-color:var(--graphite);color:#fff}
+.fab-tabs button[aria-pressed="true"] small{color:#CFCBC4}
+.fab-meta{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+.fab-sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:12px 8px}
+.fab-sw button{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11.5px;line-height:1.2;color:var(--graphite-2);text-align:center}
+.fab-sw i{width:36px;height:36px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);outline:1.5px solid transparent;outline-offset:2px;transition:outline-color .2s}
+.fab-sw button:hover i{outline-color:var(--line)}
+.fab-sw button[aria-checked="true"] i{outline-color:var(--graphite)}
+.fab-sw button[aria-checked="true"]{color:var(--graphite);font-weight:500}
+.fab-foot{font-size:12.5px;color:var(--muted);margin:14px 0 0}
+.fab-foot a{color:var(--oak-deep)}
 .coats{display:flex;gap:12px;flex-wrap:wrap}
 .coat{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px;width:72px;font-size:12.5px;color:var(--graphite-2)}
 .coat i{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);outline:1px solid transparent;outline-offset:3px;transition:outline-color .2s}
@@ -336,8 +412,10 @@ footer .logo-text small{color:#D2AE83}
       <span class="logo-text"><strong>Inter Wood</strong><small>Гомель</small></span>
     </a>
     <nav class="main" aria-label="Основное меню">
-      <a href="#catalog" data-go="table">Столы</a>
-      <a href="#catalog" data-go="chair">Стулья</a>
+      <div class="dd" id="dd">
+        <button class="dd-btn" id="ddBtn" type="button" aria-expanded="false" aria-controls="ddMenu">Продукция <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+        <div class="dd-menu" id="ddMenu"></div>
+      </div>
       <a href="#about">О нас</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -353,8 +431,7 @@ footer .logo-text small{color:#D2AE83}
     </button>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a href="#catalog" data-go="table">Столы</a>
-    <a href="#catalog" data-go="chair">Стулья</a>
+    <div class="m-group"><span>Продукция</span><div id="mCats"></div></div>
     <a href="#about">О нас</a>
     <a href="#contacts">Контакты</a>
     <div class="m-contact"><b>+375 (29) 123-45-67</b>ТЦ «Мебельный Квартал», г. Гомель</div>
@@ -365,23 +442,24 @@ footer .logo-text small{color:#D2AE83}
   <section class="hero">
     <div class="wrap">
       <div>
-        <div class="eyebrow">Массив дуба · Столы и стулья</div>
+        <div class="eyebrow">Массив дуба · Мебель для дома</div>
         <h1>Мебель из массива дуба в Гомеле. <em>Эстетика природы</em> в вашем интерьере</h1>
-        <p class="lead">Обеденные столы и стулья фабрики ПМЦ и собственного производства. Цельные ламели дуба, масло с воском, размеры под вашу кухню и гостиную.</p>
+        <p class="lead">Столы, стулья, кровати, шкафы и двери из массива дуба. Цельные ламели дуба, масло с воском, размеры под ваш интерьер.</p>
         <div class="hero-actions">
           <a class="btn btn-dark" href="#catalog">Смотреть каталог <span class="arr">→</span></a>
           <a class="btn btn-ghost" href="#contacts">Приехать в шоурум</a>
         </div>
       </div>
-      <div class="hero-visual" id="heroVisual">
-        <div class="hero-tag t1"><b>Стол «Тайфун»</b>раздвижной, от 1 800 BYN</div>
-        <div class="hero-tag t2"><b>Столешница</b>40 мм, дуб, масло</div>
+      <div class="hero-visual" id="heroVisual" aria-roledescription="слайдшоу" aria-label="Столы и стулья в интерьере">
+        <div class="hs-track" id="hsTrack"></div>
+        <button class="hero-tag t1" id="hsTag" type="button"><b id="hsTitle">Стол «Тайфун»</b><span id="hsNote">раздвижной, от 2 380 BYN</span><span class="hs-more">Смотреть модель →</span></button>
+        <div class="hs-bar" id="hsBar" role="group" aria-label="Слайды"></div>
       </div>
     </div>
     <div class="wrap">
       <div class="facts">
         <div class="fact"><b>100%</b><span>массив дуба в каркасе и столешнице, без шпона и МДФ</span></div>
-        <div class="fact"><b>4</b><span>цвета покрытия: Дуб натуральный, Терра, Коньяк, Графит</span></div>
+        <div class="fact"><b>8</b><span>вариантов покрытия: БШМ, Берёза, Терра, Коньяк, Рич, Мохагон, Седой, чёрное масло</span></div>
         <div class="fact"><b>0 BYN</b><span>доставка по Гомелю при заказе стола со стульями</span></div>
       </div>
     </div>
@@ -392,7 +470,7 @@ footer .logo-text small{color:#D2AE83}
       <div class="sec-head">
         <div>
           <div class="eyebrow">Каталог</div>
-          <h2>Столы и стулья из дуба</h2>
+          <h2>Мебель из массива дуба</h2>
         </div>
         <p>Откройте карточку, чтобы выбрать размер и цвет покрытия. Цена пересчитается сразу.</p>
       </div>
@@ -421,14 +499,15 @@ footer .logo-text small{color:#D2AE83}
     <div class="wrap">
       <div>
         <div class="eyebrow">О нас</div>
-        <h2>Столы, которые переживут не один переезд</h2>
-        <p style="margin-top:24px">Inter Wood — мебельный салон в Гомеле. Мы работаем с фабрикой ПМЦ и делаем часть моделей на собственном производстве. Поэтому можем изменить размер столешницы, высоту или оттенок под ваш интерьер.</p>
-        <p>Весь ассортимент можно посмотреть и потрогать в шоуруме в ТЦ «Мебельный Квартал».</p>
+        <h2>Мебель из массива, которая служит десятилетиями</h2>
+        <p style="margin-top:24px">Inter Wood — мебель из массива дуба: столы, стулья, кровати, шкафы и межкомнатные двери. Цельное дерево без шпона и МДФ, покрытие маслом с воском. Размер, высоту и оттенок подберём под ваш интерьер.</p>
+        <p>Мы находимся в Гомеле: весь ассортимент можно посмотреть и потрогать в шоуруме в ТЦ «Мебельный Квартал». Доставляем по всей Беларуси.</p>
       </div>
       <div class="steps">
-        <div class="step"><b>Шаг 1</b><div><h3>Выбор в шоуруме или онлайн</h3><p>Подберём модель, размер и покрытие. Пришлём образцы оттенков.</p></div></div>
-        <div class="step"><b>Шаг 2</b><div><h3>Изготовление</h3><p>Сушка, склейка ламелей, шлифовка и покрытие маслом с воском.</p></div></div>
-        <div class="step"><b>Шаг 3</b><div><h3>Доставка и сборка</h3><p>Привезём и соберём на месте. Гарантия на каркас и столешницу.</p></div></div>
+        <div class="eyebrow">Как мы работаем</div>
+        <div class="step"><b>Шаг 1</b><div><h3>Выбор в шоуруме или онлайн</h3><p>Подберём модель, размер и покрытие. Пришлём фото образцов оттенков.</p></div></div>
+        <div class="step"><b>Шаг 2</b><div><h3>Изготовление</h3><p>Изготовим мебель из массива дуба под ваши размеры и покроем маслом с воском.</p></div></div>
+        <div class="step"><b>Шаг 3</b><div><h3>Доставка по всей Беларуси</h3><p>Привезём в любой город РБ. Мебель легко собрать самостоятельно: в комплекте инструменты и подробная инструкция.</p></div></div>
       </div>
     </div>
   </section>
@@ -470,11 +549,11 @@ footer .logo-text small{color:#D2AE83}
           <svg class="logo-mark" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" fill="none" stroke="#E9E6E0" stroke-width="1.5"/><path d="M7 11 Q17 7 27 11 M7 17 Q17 13 27 17 M7 23 Q17 19 27 23" fill="none" stroke="#D2AE83" stroke-width="1.5"/></svg>
           <span class="logo-text"><strong>Inter Wood</strong><small>Гомель</small></span>
         </a>
-        <p class="f-about">Премиальная мебель из массива дуба: обеденные столы и стулья фабрики ПМЦ и собственного производства.</p>
+        <p class="f-about">Премиальная мебель из массива дуба: столы, стулья, кровати, шкафы и двери. Гомель, доставка по всей Беларуси.</p>
       </div>
       <div>
         <h4>Каталог</h4>
-        <ul><li><a href="#catalog" data-go="table">Столы из массива</a></li><li><a href="#catalog" data-go="chair">Стулья из дуба</a></li><li><a href="#about">О нас</a></li></ul>
+        <ul id="fCats"></ul>
       </div>
       <div>
         <h4>Контакты</h4>
@@ -511,44 +590,218 @@ footer .logo-text small{color:#D2AE83}
 (function(){
 /* ============ DATA ============ */
 const COATS = {
-  natural:{name:'Дуб натуральный', base:'#C79A68', light:'#DDBA8C', dark:'#9E7447'},
-  terra:  {name:'Терра',           base:'#9C5A3A', light:'#B7724E', dark:'#6C3A23'},
-  cognac: {name:'Коньяк',          base:'#7B4B2A', light:'#98633C', dark:'#4F2E19'},
-  graphite:{name:'Графит',         base:'#3E3E40', light:'#58585A', dark:'#232325'}
+  natural: {name:'БШМ',            base:'#C79A68', light:'#DDBA8C', dark:'#9E7447', note:'бесцветное шелковисто-матовое'},
+  bereza:  {name:'Берёза',         base:'#D9BC8E', light:'#E8D3AE', dark:'#B4945F'},
+  terra:   {name:'Терра',          base:'#9C5A3A', light:'#B7724E', dark:'#6C3A23'},
+  cognac:  {name:'Коньяк',         base:'#7B4B2A', light:'#98633C', dark:'#4F2E19'},
+  rich:    {name:'Рич',            base:'#8A5B34', light:'#A6744A', dark:'#5E3C20'},
+  mahogany:{name:'Мохагон',        base:'#6E2F22', light:'#8B4433', dark:'#481C14'},
+  sedoy:   {name:'Седой',          base:'#A9A398', light:'#C4BFB5', dark:'#837D72'},
+  // no black-oil photos yet: reuse the dark (former graphite) shots
+  black:   {name:'Чёрное масло в 2 слоя', base:'#1F1C1A', light:'#35302C', dark:'#0F0D0C', img:'graphite'}
 };
 const COAT_KEYS = Object.keys(COATS);
 const SIZES_RECT  = [{l:'140×80 см',d:0},{l:'160×90 см',d:150},{l:'180×90 см',d:300}];
 const SIZES_ROUND = [{l:'Ø 100 см',d:0},{l:'Ø 110 см',d:150},{l:'Ø 120 см',d:300}];
 
+const S_PMC = ['140×91 см','160×91 см','180×91 см','200×91 см'].map(l=>({l,d:0}));
 const PRODUCTS = [
-  {id:'t-typhoon', cat:'table', name:'Тайфун', type:'Обеденный стол', shape:'rect', build:'ext', price:1800, from:true, coat:'natural', legs:'oak', pop:1,
+  {id:'t-typhoon', photo:'typhoon', cat:'table', name:'Тайфун', type:'Обеденный стол', shape:'rect', build:'ext', price:1800, from:true, coat:'natural', legs:'oak', pop:1,
    desc:'Прямоугольный раздвижной стол из массива дуба. Вставка хранится внутри подстолья, раскладывается за несколько секунд и добавляет 40 см длины.',
-   specs:['Массив дуба','Столешница 40 мм','+40 см вставка']},
-  {id:'t-bio', cat:'table', name:'Био', type:'Обеденный стол', shape:'round', build:'solid', price:1200, from:true, coat:'natural', legs:'pedestal', pop:2,
-   desc:'Круглый цельный стол на центральной опоре. Никаких ножек под коленями: за ним удобно сидеть вчетвером или вшестером.',
-   specs:['Массив дуба','Центральная опора','Цельная столешница']},
-  {id:'c-bio-arm', cat:'chair', name:'Био', type:'Стул с подлокотниками', arms:true, price:787, from:false, coat:'terra', style:'bio', pop:3,
-   desc:'Стул с подлокотниками из массива дуба. Покрытие маслом с воском в оттенке «Терра», мягкое сиденье. Пара к столу «Био».',
-   specs:['Массив дуба','Масло/терра','Подлокотники']},
-  {id:'c-ilona', cat:'chair', name:'Илона Лайт', type:'Стул без подлокотников', arms:false, price:450, from:false, coat:'natural', style:'light', pop:4,
+   specs:['Массив дуба','Раздвижной']},
+  {id:'c-bio-arm', photo:'bio-chair', cat:'chair', name:'Био', type:'Стул с подлокотниками', arms:true, height:'dining', price:787, from:false, coat:'terra', style:'bio', pop:3,
+   desc:'Стул с подлокотниками из массива дуба. Изогнутая спинка плавно переходит в подлокотники.',
+   specs:['Массив дуба','Подлокотники']},
+  {id:'c-ilona', photo:'ilona-light', cat:'chair', name:'Илона Лайт', type:'Стул с подлокотниками', arms:true, height:'dining', price:450, from:false, coat:'terra', style:'light', pop:4,
    desc:'Лёгкий минималистичный стул из массива дуба. Тонкие ножки, изогнутая спинка, мягкое сиденье. Хорошо смотрится в ряд вдоль длинного стола.',
-   specs:['Массив дуба','Минимализм','Без подлокотников']},
-  {id:'t-loft', cat:'table', name:'Лофт', type:'Обеденный стол', shape:'rect', build:'solid', price:1550, from:true, coat:'cognac', legs:'metal', pop:5,
-   desc:'Цельная дубовая столешница на П-образных опорах из чёрного металла. Порошковая покраска, регулируемые подпятники.',
-   specs:['Массив дуба','Чёрный металл','Столешница 40 мм']},
-  {id:'t-scandi', cat:'table', name:'Сканди', type:'Обеденный стол', shape:'round', build:'ext', price:1650, from:true, coat:'natural', legs:'splay', pop:6,
-   desc:'Круглый стол, который раскладывается в овал. Наклонные ножки в скандинавском стиле.',
-   specs:['Массив дуба','Раскладывается в овал','+40 см вставка']},
-  {id:'c-mark', cat:'chair', name:'Марк', type:'Стул без подлокотников', arms:false, price:520, from:false, coat:'graphite', style:'mark', pop:7,
-   desc:'Стул с высокой прямой спинкой и царгами по периметру. Строгий силуэт для столов с металлическим подстольем.',
-   specs:['Массив дуба','Высокая спинка','Без подлокотников']},
-  {id:'c-bruno', cat:'chair', name:'Бруно', type:'Полукресло с подлокотниками', arms:true, price:690, from:false, coat:'cognac', style:'bruno', pop:8,
-   desc:'Полукресло с широкими подлокотниками и мягкой спинкой. Для торца стола или кабинета.',
-   specs:['Массив дуба','Мягкая спинка','Подлокотники']}
+   specs:['Массив дуба','Минимализм']},
+  // ---- Столы фабрики ПМЦ (pmc.by). Цены не опубликованы: price:null = «Цена по запросу»
+  {id:'t-korall', photo:'korall', cat:'table', name:'Коралл', type:'Обеденный стол', shape:'oval', build:'solid', price:null, coat:'natural', legs:'oak', pop:10, sizes:[{l:'240×110 см',d:0}],
+   desc:'Большой овальный стол на 8–10 персон. Опора собрана из вертикальных дубовых реек.', specs:['Массив дуба','240×110 см']},
+  {id:'t-karolina', photo:'karolina', cat:'table', name:'Каролина', type:'Обеденный стол', shape:'round', build:'ext', price:null, coat:'natural', legs:'pedestal', pop:11,
+   desc:'Круглый раскладной стол на скульптурной опоре с металлическим основанием. В разложенном виде становится овальным. Можно заказать без раскладного механизма.', specs:['Массив дуба','Раскладывается в овал']},
+  {id:'t-karolina-fix', photo:'karolina-fix', cat:'table', name:'Каролина фикс', type:'Обеденный стол', shape:'oval', build:'solid', price:null, coat:'natural', legs:'oak', pop:12,
+   desc:'Длинный овальный стол на двух скульптурных опорах. Цельная столешница без раскладного механизма.', specs:['Массив дуба','Две опоры']},
+  {id:'t-oxford', photo:'oxford', cat:'table', name:'Оксфорд', type:'Обеденный стол', shape:'round', build:'solid', price:null, coat:'cognac', legs:'splay', pop:13, sizes:[{l:'Ø 110 см',d:0}],
+   desc:'Круглый стол на X-образном подстолье. Компактный вариант для кухни на 4 персоны.', specs:['Массив дуба','Ø 110 см']},
+  {id:'t-milina', photo:'milina', cat:'table', name:'Милина', type:'Обеденный стол', shape:'rect', build:'solid', price:null, coat:'natural', legs:'oak', pop:14,
+   desc:'Прямоугольный стол с лаконичным подстольем и тонкими ножками.', specs:['Массив дуба','Минимализм']},
+  {id:'t-vinara', photo:'vinara', cat:'table', name:'Винара', type:'Обеденный стол', shape:'rect', build:'solid', price:null, coat:'natural', legs:'oak', pop:15, sizes:S_PMC,
+   desc:'Прямоугольный стол со скруглёнными углами на изогнутых ножках. Четыре длины столешницы.', specs:['Массив дуба','140–200 см']},
+  {id:'t-ronda', photo:'ronda', cat:'table', name:'Ронда', type:'Обеденный стол', shape:'rect', build:'solid', price:null, coat:'black', legs:'oak', pop:16,
+   desc:'Строгий прямоугольный стол с массивными опорами на торцах.', specs:['Массив дуба','Массивные опоры']},
+  {id:'t-infiniti', photo:'infiniti', cat:'table', name:'Инфинити', type:'Обеденный стол', shape:'round', build:'solid', price:null, coat:'black', legs:'pedestal', pop:17, sizes:[{l:'Ø 120 см',d:0}],
+   desc:'Круглый стол на скульптурной опоре из переплетённых дубовых лент. Деревянная столешница.', specs:['Массив дуба','Ø 120 см']},
+  {id:'t-infiniti-glass', photo:'infiniti-glass', cat:'table', name:'Инфинити со стеклом', type:'Обеденный стол', shape:'round', build:'solid', price:null, coat:'black', legs:'pedestal', pop:18, sizes:[{l:'Ø 120 см',d:0}],
+   desc:'Та же скульптурная опора «Инфинити», но со столешницей из закалённого стекла толщиной 8 мм.', specs:['Дуб + стекло 8 мм','Ø 120 см']},
+  {id:'t-arkhar-round', photo:'arkhar-round', cat:'table', name:'Архар круглый', type:'Обеденный стол', shape:'round', build:'solid', price:null, coat:'natural', legs:'splay', pop:19, sizes:[{l:'Ø 110 см',d:0}],
+   desc:'Круглый стол на изогнутых ножках, которые сходятся в центре.', specs:['Массив дуба','Ø 110 см']},
+  {id:'t-arkhar', photo:'arkhar', cat:'table', name:'Архар', type:'Обеденный стол', shape:'rect', build:'solid', price:null, coat:'natural', legs:'oak', pop:20, sizes:S_PMC,
+   desc:'Прямоугольный стол на изогнутых ножках с металлической царгой. Четыре длины столешницы.', specs:['Массив дуба','140–200 см']},
+  {id:'t-olden', photo:'olden', cat:'table', name:'Олден', type:'Обеденный стол', shape:'round', build:'solid', price:null, coat:'natural', legs:'splay', pop:21, sizes:[{l:'Ø 95 см',d:0}],
+   desc:'Небольшой круглый стол на X-образном подстолье. Для кухни или столовой зоны на 2–4 персоны.', specs:['Массив дуба','Ø 95 см']},
+  {id:'t-meduza', photo:'meduza', cat:'table', name:'Медуза', type:'Обеденный стол', shape:'oval', build:'solid', price:null, coat:'natural', legs:'oak', pop:22, sizes:S_PMC,
+   desc:'Стол с мягко скруглённой столешницей на прямых ножках. Четыре длины.', specs:['Массив дуба','140–200 см']},
+  // ---- Стулья, кресла, барные и полубарные стулья фабрики ПМЦ
+  {id:'c-luka', photo:'luka', cat:'chair', name:'Лука', type:'Стул', arms:false, height:'dining', price:null, coat:'natural', pop:40,
+   desc:'Обеденный стул с округлой мягкой спинкой и сиденьем на тонких ножках.', specs:["Массив дуба", "53×55×80 см"]},
+  {id:'c-anastasiya', photo:'anastasiya', cat:'chair', name:'Анастасия', type:'Стул', arms:false, height:'dining', price:null, coat:'natural', pop:41,
+   desc:'Обеденный стул с овальной мягкой спинкой.', specs:["Массив дуба", "56×47×84 см"]},
+  {id:'c-milina-chair', photo:'milina-chair', cat:'chair', name:'Милина', type:'Стул', arms:false, height:'dining', price:null, coat:'black', pop:42,
+   desc:'Лаконичный стул с изогнутой деревянной спинкой. Пара к столу «Милина».', specs:["Массив дуба", "53×48×78 см"]},
+  {id:'c-turin', photo:'turin', cat:'chair', name:'Турин', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:43,
+   desc:'Стул с подлокотниками и деревянной спинкой. Лёгкий силуэт, мягкое сиденье.', specs:["Массив дуба", "58×57×79 см"]},
+  {id:'c-turin-soft', photo:'turin-soft', cat:'chair', name:'Турин Софт', type:'Стул', arms:true, height:'dining', price:null, coat:'cognac', pop:44,
+   desc:'Версия «Турина» с мягкой спинкой.', specs:["Массив дуба", "58×57×79 см"]},
+  {id:'c-kioto', photo:'kioto', cat:'chair', name:'Киото', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:45,
+   desc:'Стул с подлокотниками, которые переходят в мягкую спинку.', specs:["Массив дуба"]},
+  {id:'c-linda', photo:'linda', cat:'chair', name:'Линда', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:46,
+   desc:'Стул с изогнутыми подлокотниками и мягким сиденьем.', specs:["Массив дуба", "58×60×82 см"]},
+  {id:'c-ilona-classic', photo:'ilona', cat:'chair', name:'Илона', type:'Стул', arms:true, height:'dining', price:null, coat:'black', pop:47,
+   desc:'Стул с мягкой спинкой и подлокотниками.', specs:["Массив дуба"]},
+  {id:'c-vinara-chair', photo:'vinara-chair', cat:'chair', name:'Винара', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:48,
+   desc:'Стул с подлокотниками и V-образной опорой спинки. Пара к столу «Винара».', specs:["Массив дуба", "53×57×71 см"]},
+  {id:'c-bio-soft', photo:'bio-soft', cat:'chair', name:'Био Софт', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:49,
+   desc:'Стул «Био» с мягким сиденьем.', specs:["Массив дуба"]},
+  {id:'c-frau', photo:'frau', cat:'chair', name:'Фрау', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:50,
+   desc:'Стул с подлокотниками, мягкой спинкой и сиденьем.', specs:["Массив дуба", "56×56×82 см"]},
+  {id:'c-vardo', photo:'vardo', cat:'chair', name:'Вардо', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:51,
+   desc:'Стул с низкой спинкой, переходящей в подлокотники, и мягким сиденьем.', specs:["Массив дуба", "58×53×72 см"]},
+  {id:'c-dzhenni', photo:'dzhenni', cat:'chair', name:'Дженни', type:'Стул', arms:true, height:'dining', price:null, coat:'black', pop:52,
+   desc:'Стул-кресло со спинкой из тонких реек.', specs:["Массив дуба"]},
+  {id:'c-samurai', photo:'samurai', cat:'chair', name:'Самурай', type:'Стул', arms:true, height:'dining', price:null, coat:'natural', pop:53,
+   desc:'Стул с широкими подлокотниками и прямой спинкой.', specs:["Массив дуба", "59×56×79 см"]},
+  {id:'c-vera', photo:'vera', cat:'chair', name:'Вера', type:'Кресло', arms:true, height:'dining', price:null, coat:'natural', pop:54,
+   desc:'Мягкое кресло для отдыха на дубовом каркасе, с подушками.', specs:["Массив дуба"]},
+  {id:'c-barokko', photo:'barokko', cat:'chair', name:'Барокко', type:'Кресло', arms:true, height:'dining', price:null, coat:'cognac', pop:55,
+   desc:'Классическое кресло с резным каркасом и мягкой обивкой.', specs:["Массив дуба"]},
+  {id:'c-triada', photo:'triada', cat:'chair', name:'Триада', type:'Кресло', arms:true, height:'dining', price:null, coat:'black', pop:56,
+   desc:'Широкое мягкое кресло для гостиной на дубовом каркасе.', specs:["Массив дуба", "84×77×81 см"]},
+  {id:'c-garvard', photo:'garvard', cat:'chair', name:'Гарвард', type:'Кресло', arms:true, height:'dining', price:null, coat:'natural', pop:57,
+   desc:'Кресло с решётчатой спинкой и широкими подлокотниками.', specs:["Массив дуба", "65×76×84 см"]},
+  {id:'c-garvard-komfort', photo:'garvard-komfort', cat:'chair', name:'Гарвард Комфорт', type:'Кресло', arms:true, height:'dining', price:null, coat:'terra', pop:58,
+   desc:'Кресло «Гарвард» с мягкими подушками на сиденье и спинке.', specs:["Массив дуба", "65×76×84 см"]},
+  {id:'c-vardo-half', photo:'vardo-half', cat:'chair', name:'Вардо полубарный', type:'Полубарный стул', arms:true, height:'half', price:null, coat:'natural', pop:59,
+   desc:'Полубарная версия «Вардо» с металлической подножкой.', specs:["Массив дуба", "58×53×92 см"]},
+  {id:'c-anastasiya-half', photo:'anastasiya-half', cat:'chair', name:'Анастасия полубарный', type:'Полубарный стул', arms:true, height:'half', price:null, coat:'natural', pop:60,
+   desc:'Полубарный стул с мягкой спинкой, подлокотниками и подножкой.', specs:["Массив дуба", "57×64×104 см"]},
+  {id:'c-meri', photo:'meri', cat:'chair', name:'Мэри', type:'Полубарный стул', arms:false, height:'half', price:null, coat:'natural', pop:61,
+   desc:'Полубарный стул с изогнутой спинкой и металлической подножкой.', specs:["Массив дуба", "48×50×98 см"]},
+  {id:'c-anastasiya-bar', photo:'anastasiya-bar', cat:'chair', name:'Анастасия барный', type:'Барный стул', arms:true, height:'bar', price:null, coat:'natural', pop:62,
+   desc:'Барный стул с мягкой спинкой, подлокотниками и подножкой.', specs:["Массив дуба", "57×64×115 см"]},
+  {id:'c-denver', photo:'denver', cat:'chair', name:'Денвер', type:'Барный стул', arms:false, height:'bar', price:null, coat:'natural', pop:63,
+   desc:'Барный стул с небольшой спинкой и подножкой.', specs:["Массив дуба", "38×38×87 см"]},
+  {id:'c-tvist', photo:'tvist', cat:'chair', name:'Твист', type:'Барный табурет', arms:false, height:'bar', price:null, coat:'natural', pop:64,
+   desc:'Табурет из массива дуба с мягким круглым сиденьем.', specs:["Массив дуба", "57×48×81 см"]},
+  // ---- Спальня, комоды, шкафы фабрики ПМЦ
+  {id:'b-nitstsa', photo:'bed-nitstsa', cat:'bed', kind:'bed', name:'Ницца', type:'Кровать', badge:'Кровать', cover:true, price:null, coat:'natural', pop:80,
+   desc:'Кровать из массива дуба с изголовьем из горизонтальных ламелей и деревянным основанием под матрас.', specs:["Массив дуба", "219×173×102 см"]},
+  {id:'b-elegiya', photo:'bed-elegiya', cat:'bed', kind:'bed', name:'Элегия', type:'Кровать', badge:'Кровать', cover:true, price:null, coat:'black', pop:81,
+   desc:'Кровать с высоким цельным изголовьем и деревянным основанием под матрас.', specs:["Массив дуба", "218×200×96 см"]},
+  {id:'b-tumba-nitstsa', photo:'tumba-nitstsa', cat:'bed', kind:'tumba', name:'Ницца', type:'Прикроватная тумба', badge:'Тумба', cover:true, price:null, coat:'natural', pop:82,
+   desc:'Прикроватная тумба с двумя ящиками. Пара к кровати «Ницца».', specs:["Массив дуба", "51×45×52 см"]},
+  {id:'b-tumba-elegiya', photo:'tumba-elegiya', cat:'bed', kind:'tumba', name:'Элегия', type:'Прикроватная тумба', badge:'Тумба', cover:true, price:null, coat:'black', pop:83,
+   desc:'Прикроватная тумба с ящиком. Пара к кровати «Элегия».', specs:["Массив дуба", "60×42×43 см"]},
+  {id:'b-vanity', photo:'dressing-table', cat:'bed', kind:'vanity', name:'Туалетный столик', type:'Спальня', badge:'Туалетный столик', cover:false, price:null, coat:'black', pop:84,
+   desc:'Туалетный столик с откидным зеркалом и отделениями под крышкой.', specs:["Массив дуба"]},
+  {id:'d-elegiya', photo:'komod-elegiya', cat:'dresser', kind:'', name:'Элегия', type:'Комод', badge:'Комод', cover:true, price:null, coat:'natural', pop:85,
+   desc:'Комод на высоких ножках с ящиками и распашными дверцами. Есть варианты с крашеными фасадами.', specs:["Массив дуба", "180×45×75 см"]},
+  {id:'d-viola', photo:'komod-viola', cat:'dresser', kind:'', name:'Виола', type:'Комод', badge:'Комод', cover:true, price:null, coat:'natural', pop:86,
+   desc:'Комод с закруглёнными торцами и дубовой столешницей. Фасады белые, чёрные или сине-зелёные.', specs:["Массив дуба", "160×44×78 см"]},
+  {id:'d-versal', photo:'komod-versal', cat:'dresser', kind:'', name:'Версаль', type:'Комод', badge:'Комод', cover:true, price:null, coat:'black', pop:87,
+   desc:'Комод с закруглёнными торцами и рифлёными фасадами.', specs:["Массив дуба", "140×45×78 см"]},
+  {id:'w-versal', photo:'shkaf-versal', cat:'wardrobe', kind:'', name:'Версаль', type:'Шкаф', badge:'Шкаф', cover:true, price:null, coat:'natural', pop:88,
+   desc:'Двухстворчатый шкаф с закруглёнными углами. Внутри полки и штанга для одежды.', specs:["Массив дуба", "140×45×200 см"]},
+  {id:'w-versal-glass', photo:'shkaf-versal-glass', cat:'wardrobe', kind:'', name:'Версаль витрина', type:'Шкаф-витрина', badge:'Шкаф-витрина', cover:true, price:null, coat:'natural', pop:89,
+   desc:'Шкаф-витрина со стеклянными дверцами и полками.', specs:["Массив дуба", "140×45×200 см"]}
 ];
+/* ============ PRICES (прайс-лист ПМЦ, октябрь 2026) ============
+   o = масло OSMO (любой цвет), b = чёрное масло в 2 слоя.
+   Измерения по порядку: size → soft → top; null = не изготавливается. */
+const PRICES = {
+  // столы
+  't-typhoon':       {size:['140×91 см','160×91 см','180×91 см','200×91 см','220×91 см','240×91 см'], o:[2380,2380,2620,2620,2915,2915], b:[2800,2800,3225,3225,3650,3650]},
+  't-meduza':        {size:['140×91 см','160×91 см','180×91 см','200×91 см','220×91 см','240×91 см'], o:[2380,2380,2620,2620,2915,2915], b:[2800,2800,3225,3225,3650,3650]},
+  't-arkhar':        {size:['140×91 см','160×91 см','180×91 см','200×91 см','220×91 см','240×91 см'], o:[2455,2455,2635,2635,2935,2935], b:[2990,2990,3155,3155,3845,3845]},
+  't-vinara':        {size:['140×91 см','160×91 см','180×91 см','200×91 см','220×91 см','240×91 см'], o:[3275,3275,3840,3840,4115,4115], b:[4020,4020,4530,4530,4695,4695]},
+  't-oxford':        {size:['Ø 110 см','Ø 120 см'], o:[1135,1470], b:[1400,1865]},
+  't-olden':         {size:['Ø 95 см'], o:[1070], b:[1330]},
+  't-arkhar-round':  {size:['Ø 110 см'], o:[1485], b:[1780]},
+  't-infiniti':      {size:['Ø 120 см'], o:[3260], b:[3890]},
+  't-infiniti-glass':{size:['Ø 120 см, круглое стекло','180×120 см, овальное стекло'], o:[3440,3820], b:[4155,4495]},
+  't-ronda':         {size:['200×100 см','220×100 см','240×100 см'], o:[5170,5430,5660], b:[6700,7060,7360]},
+  't-karolina':      {sizeTitle:'Исполнение', size:['Раздвижная, Ø 120 (160) см','Без механизма, Ø 120 см'], o:[5795,5090], b:[6670,5850]},
+  't-karolina-fix':  {size:['240×110 см','280×120 см'], o:[4510,10310], b:[5190,11800]},
+  't-milina':        {size:['120×70 см','120×80 см','140×80 см','160×80 см','180×80 см','200×80 см','120×91 см','140×91 см','160×91 см','180×91 см','200×91 см'], top:['solid','joined'],
+                      o:[[1495,null],[2110,1665],[2360,1915],[2415,1970],[2710,2110],[2710,2110],[2240,1580],[2315,1650],[2395,1735],[2835,1945],[2835,1945]],
+                      b:[[1730,null],[2500,1985],[2800,2245],[2899,2320],[3217,2466],[3217,2466],[2820,2050],[2970,2150],[3115,2255],[3585,2470],[3585,2470]]},
+  // стулья и кресла
+  'c-bio-arm':        {soft:['base','comfort','plus'], o:[615,675,735],   b:[785,845,915]},
+  'c-bio-soft':       {soft:['comfort','plus'],        o:[760,805],       b:[910,970]},
+  'c-samurai':        {soft:['base','comfort','plus'], o:[585,645,675],   b:[700,745,790]},
+  'c-denver':         {soft:['base'],                  o:[475],           b:[555]},
+  'c-meri':           {soft:['base','comfort','plus'], o:[765,825,870],   b:[920,975,1035]},
+  'c-vinara-chair':   {soft:['base','comfort','plus'], o:[1040,1100,1170],b:[1260,1325,1395]},
+  'c-dzhenni':        {soft:['comfort','plus'],        o:[770,850],       b:[930,1030]},
+  'c-milina-chair':   {soft:['base','comfort','plus'], o:[620,680,735],   b:[760,805,850]},
+  'c-vardo':          {soft:['comfort','plus'],        o:[635,695],       b:[740,820]},
+  'c-vardo-half':     {soft:['comfort','plus'],        o:[790,855],       b:[1005,1025]},
+  'c-linda':          {soft:['comfort','plus'],        o:[855,870],       b:[1035,1105]},
+  'c-frau':           {soft:['comfort','plus'],        o:[885,1055]},
+  'c-anastasiya':     {sizeTitle:'Исполнение', size:['Анастасия','Анастасия 1','Анастасия 2'], soft:['comfort','plus'],
+                       o:[[780,880],[740,795],[495,570]], b:[[950,1035],[920,985],[600,680]]},
+  'c-anastasiya-half':{sizeTitle:'Исполнение', size:['Анастасия','Анастасия 1','Анастасия 2'], soft:['comfort','plus'],
+                       o:[[900,945],[840,865],[670,690]], b:[[1080,1140],[1005,1035],[780,810]]},
+  'c-anastasiya-bar': {sizeTitle:'Исполнение', size:['Анастасия','Анастасия 1'], soft:['comfort','plus'],
+                       o:[[955,1005],[840,890]], b:[[1155,1215],[1005,1065]]},
+  'c-luka':           {soft:['comfort'],               o:[780],           b:[1005]},
+  'c-ilona-classic':  {soft:['comfort'],               o:[1090],          b:[1345]},
+  'c-ilona':          {soft:['comfort'],               o:[780],           b:[955]},
+  'c-kioto':          {soft:['comfort','plus'],        o:[1580,1695],     b:[1740,1855]},
+  'c-triada':         {soft:['comfort'],               o:[2035],          b:[2250]},
+  'c-turin':          {soft:['base','comfort','plus'], o:[920,975,1080],  b:[1025,1085,1190]},
+  'c-turin-soft':     {soft:['comfort','plus'],        o:[860,965],       b:[960,1015]},
+  'c-vera':           {soft:['comfort','plus'],                           b:[2835,3415]}
+};
+const SOFT = {
+  base:    {l:'Без подушки',  n:'чистый массив дуба'},
+  comfort: {l:'Комфорт',      n:'съёмная мягкая подушка, ткань подберём в шоуруме'},
+  plus:    {l:'Комфорт плюс', n:'съёмная подушка из кожи, 7 цветов'}
+};
+const TOPS = {
+  solid:  {l:'Цельная',    n:'цельные ламели по всей длине'},
+  joined: {l:'Сращённая',  n:'ламели сращены по длине, дешевле'}
+};
+const DIMS = ['size','soft','top'];
+const oilOf = coat => coat==='black' ? 'b' : 'o';
+function specPrice(spec, oil, sel){
+  let a = spec[oil]; if(!a) return null;
+  for(const d of DIMS){ if(spec[d]){ a = a[sel[d]||0]; if(a==null) return null; } }
+  return typeof a==='number' ? a : null;
+}
+function anyValid(spec, oil, sel, fixed){
+  const ranges = DIMS.map(d=> spec[d] && !(d in fixed) ? spec[d].map((_,k)=>k) : [sel[d]||0]);
+  for(const a of ranges[0]) for(const b of ranges[1]) for(const c of ranges[2]){
+    const t = Object.assign({}, sel, {size:a, soft:b, top:c}, fixed);
+    if(specPrice(spec, oil, t)!=null) return t;
+  }
+  return null;
+}
+function normalize(){
+  const sp = cur.p.spec; if(!sp) return;
+  const oil = oilOf(cur.coat);
+  if(specPrice(sp, oil, cur)!=null) return;
+  // keep the option the visitor just picked, move the others to the first combination that exists
+  const t = (cur.last && anyValid(sp, oil, cur, {[cur.last]:cur[cur.last]})) || anyValid(sp, oil, cur, {});
+  if(t){ cur.size=t.size; cur.soft=t.soft; cur.top=t.top; }
+}
+const flat = a => Array.isArray(a) ? a.flatMap(flat) : (typeof a==='number' ? [a] : []);
+PRODUCTS.forEach(p=>{ const sp = PRICES[p.id]; if(sp){ p.spec = sp; p.sizes = null; p.price = Math.min(...flat(sp.o||[]), ...flat(sp.b||[])); p.from = true; } });
+
 const byId = id => PRODUCTS.find(p=>p.id===id);
 const fmt = n => n.toLocaleString('ru-RU') + ' BYN';
-const sizesFor = p => p.cat==='table' ? (p.shape==='round'?SIZES_ROUND:SIZES_RECT) : null;
+const sizesFor = p => p.spec ? null : p.sizes || (p.cat==='table' && p.price!=null ? (p.shape==='round'?SIZES_ROUND:SIZES_RECT) : null);
+const priceText = p => p.price==null ? 'Цена по запросу' : (p.from?'от ':'')+fmt(p.price);
 const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* ============ DRAWINGS (inline SVG) ============ */
@@ -594,7 +847,7 @@ function chairBody(p, c){
   const w = woodDefs(c), C = COATS[c]; let s='';
   const st = p.style;
   const seatY = 168, backTop = st==='mark'?52:st==='light'?78:st==='bruno'?72:74;
-  const cushion = c==='graphite'? '#8C8A86' : '#D9D2C7';
+  const cushion = c==='black'? '#8C8A86' : '#D9D2C7';
   s += `<ellipse cx="200" cy="264" rx="84" ry="6" fill="#000" opacity=".08"/>`;
   // back leg + back post (slight rake)
   s += `<polygon points="146,${backTop} 158,${backTop} 162,${seatY} 150,262 139,262 150,${seatY}" fill="url(#${w.id}v)"/>`;
@@ -623,10 +876,34 @@ function chairBody(p, c){
   return {defs:w.defs, body:s};
 }
 
+function cabinetBody(p, c){
+  const w = woodDefs(c), C = COATS[c]; let s = `<ellipse cx="200" cy="264" rx="150" ry="6" fill="#000" opacity=".08"/>`;
+  const wood = (x,y,wd,h)=>`<rect x="${x}" y="${y}" width="${wd}" height="${h}" fill="url(#${w.id}g)"/><rect x="${x}" y="${y}" width="${wd}" height="${h}" fill="url(#${w.id}p)"/>`;
+  if(p.kind==='bed'){
+    s += wood(56,96,22,166) + wood(56,190,288,24) + `<rect x="80" y="176" width="262" height="16" rx="6" fill="#E9E4DC"/><rect x="330" y="214" width="12" height="48" fill="${C.dark}"/>`;
+  } else {
+    const h = p.cat==='wardrobe' ? 206 : p.kind==='tumba' ? 90 : 118, y = 244 - h, x = p.kind==='tumba' ? 150 : 70, wd = p.kind==='tumba' ? 100 : 260;
+    s += wood(x,y,wd,h) + `<rect x="${x+8}" y="244" width="8" height="18" fill="${C.dark}"/><rect x="${x+wd-16}" y="244" width="8" height="18" fill="${C.dark}"/>`;
+    s += p.cat==='wardrobe' ? `<line x1="200" y1="${y+6}" x2="200" y2="238" stroke="${C.dark}" opacity=".5"/>` : `<line x1="${x+6}" y1="${y+h/2}" x2="${x+wd-6}" y2="${y+h/2}" stroke="${C.dark}" opacity=".45"/>`;
+  }
+  return {defs:w.defs, body:s};
+}
 function productSVG(p, c, vb){
-  const r = p.cat==='table' ? tableBody(p,c) : chairBody(p,c);
-  const view = vb || (p.cat==='table' ? '20 40 360 250' : '60 30 280 250');
+  const r = p.cat==='table' ? tableBody(p,c) : p.cat==='chair' ? chairBody(p,c) : cabinetBody(p,c);
+  const view = vb || (p.cat==='chair' ? '60 30 280 250' : '20 40 360 250');
   return `<svg viewBox="${view}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(p.type+' '+p.name+', '+COATS[c].name)}"><defs>${r.defs}</defs>${r.body}</svg>`;
+}
+
+/* Photos: images/<photo>-<coat>.jpg, fallback images/<photo>.jpg, then the drawing */
+const IMG_DIR = 'images/';
+window.iwImgFail = function(el){
+  if(el.dataset.alt){ el.src = el.dataset.alt; el.removeAttribute('data-alt'); }
+  else el.remove();
+};
+function productVisual(p, c){
+  if(!p.photo) return productSVG(p,c);
+  const alt = esc(p.type+' «'+p.name+'», '+COATS[c].name);
+  return productSVG(p,c) + `<img class="photo${p.cover?' cover':''}" src="${IMG_DIR}${p.photo}-${COATS[c].img||c}.jpg" data-alt="${IMG_DIR}${p.photo}.jpg" alt="${alt}" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="iwImgFail(this)">`;
 }
 
 function heroSVG(){
@@ -644,7 +921,7 @@ function heroSVG(){
 }
 
 /* ============ STATE ============ */
-const filt = {cat:'all', shape:'any', build:'any', arms:'any', sort:'pop'};
+const filt = {cat:'all', shape:'any', build:'any', arms:'any', height:'any', kind:'any', sort:'pop'};
 let cart = [];
 try{ cart = JSON.parse(localStorage.getItem('iw-cart')||'[]'); if(!Array.isArray(cart)) cart=[]; }catch(e){ cart=[]; }
 cart = cart.filter(i=>byId(i.id));
@@ -654,9 +931,23 @@ const saveCart = ()=>{ try{ localStorage.setItem('iw-cart', JSON.stringify(cart)
 const $ = s => document.querySelector(s);
 const catsEl = $('#cats'), paramsEl = $('#params'), grid = $('#grid');
 
+const CATS = [
+  ['table','Столы','обеденные, круглые и раздвижные'],
+  ['chair','Стулья','обеденные, барные, кресла'],
+  ['bed','Спальня','кровати, тумбы, туалетный столик'],
+  ['dresser','Комоды','для гостиной и спальни'],
+  ['wardrobe','Шкафы','шкафы и витрины']
+];
+const catCount = k => k==='all' ? PRODUCTS.length : PRODUCTS.filter(p=>p.cat===k).length;
+function renderMenus(){
+  $('#ddMenu').innerHTML = CATS.map(([k,l,d])=>`<a href="#catalog" data-go="${k}">${l}<small>${d}</small><span class="c">${catCount(k)}</span></a>`).join('')
+    + `<a href="#catalog" data-go="all" class="all">Весь каталог →</a>`;
+  $('#mCats').innerHTML = CATS.map(([k,l])=>`<a href="#catalog" data-go="${k}">${l}<span class="c">${catCount(k)}</span></a>`).join('');
+  $('#fCats').innerHTML = CATS.map(([k,l])=>`<li><a href="#catalog" data-go="${k}">${l}</a></li>`).join('') + '<li><a href="#about">О нас</a></li>';
+}
 function renderCats(){
-  const counts = {all:PRODUCTS.length, table:PRODUCTS.filter(p=>p.cat==='table').length, chair:PRODUCTS.filter(p=>p.cat==='chair').length};
-  catsEl.innerHTML = [['all','Все'],['table','Столы из массива'],['chair','Стулья из дуба']]
+  const counts = {}; ['all',...CATS.map(c=>c[0])].forEach(k=>counts[k]=catCount(k));
+  catsEl.innerHTML = [['all','Все'],...CATS]
     .map(([k,l])=>`<button class="cat" data-cat="${k}" aria-pressed="${filt.cat===k}">${l}<span class="c">${counts[k]}</span></button>`).join('');
 }
 function seg(key, opts){
@@ -665,14 +956,17 @@ function seg(key, opts){
 function renderParams(){
   let h = '';
   if(filt.cat==='table'){
-    h += `<div class="pgroup"><span>Форма</span>${seg('shape',[['any','Любая'],['round','Круглый'],['rect','Прямоугольный']])}</div>`;
+    h += `<div class="pgroup"><span>Форма</span>${seg('shape',[['any','Любая'],['round','Круглый'],['rect','Прямоугольный'],['oval','Овальный']])}</div>`;
     h += `<div class="pgroup"><span>Конструкция</span>${seg('build',[['any','Любая'],['ext','Раздвижной'],['solid','Цельный']])}</div>`;
   } else if(filt.cat==='chair'){
+    h += `<div class="pgroup"><span>Высота</span>${seg('height',[['any','Любая'],['dining','Обеденные'],['half','Полубарные'],['bar','Барные']])}</div>`;
     h += `<div class="pgroup"><span>Тип</span>${seg('arms',[['any','Любой'],['yes','С подлокотниками'],['no','Без подлокотников']])}</div>`;
-  } else {
-    h += `<span class="params-hint">Выберите «Столы» или «Стулья», чтобы открыть фильтр по форме, конструкции и типу.</span>`;
+  } else if(filt.cat==='bed'){
+    h += `<div class="pgroup"><span>Тип</span>${seg('kind',[['any','Все'],['bed','Кровати'],['tumba','Тумбы'],['vanity','Туалетные столики']])}</div>`;
+  } else if(filt.cat==='all'){
+    h += `<span class="params-hint">Выберите раздел, чтобы открыть фильтры: форма и конструкция столов, высота и тип стульев, тип мебели для спальни.</span>`;
   }
-  const active = filt.shape!=='any'||filt.build!=='any'||filt.arms!=='any';
+  const active = filt.shape!=='any'||filt.build!=='any'||filt.arms!=='any'||filt.height!=='any'||filt.kind!=='any';
   if(active) h += `<button class="reset" id="resetF">Сбросить параметры</button>`;
   paramsEl.innerHTML = h;
 }
@@ -686,11 +980,13 @@ function filtered(){
     if(p.cat==='chair' && filt.cat==='chair'){
       if(filt.arms==='yes' && !p.arms) return false;
       if(filt.arms==='no' && p.arms) return false;
+      if(filt.height!=='any' && (p.height||'dining')!==filt.height) return false;
     }
+    if(p.cat==='bed' && filt.cat==='bed' && filt.kind!=='any' && p.kind!==filt.kind) return false;
     return true;
   });
-  if(filt.sort==='asc') list.sort((a,b)=>a.price-b.price);
-  else if(filt.sort==='desc') list.sort((a,b)=>b.price-a.price);
+  if(filt.sort==='asc') list.sort((a,b)=>(a.price??Infinity)-(b.price??Infinity));
+  else if(filt.sort==='desc') list.sort((a,b)=>(b.price??-Infinity)-(a.price??-Infinity));
   else list.sort((a,b)=>a.pop-b.pop);
   return list;
 }
@@ -703,37 +999,46 @@ function renderGrid(){
     return;
   }
   grid.innerHTML = list.map((p,i)=>{
-    const badge = p.cat==='table' ? (p.build==='ext'?'Раздвижной':'Цельный') : (p.arms?'С подлокотниками':'Без подлокотников');
-    return `<button class="card" data-id="${p.id}" style="animation-delay:${i*50}ms" aria-label="${esc(p.type+' '+p.name+', '+(p.from?'от ':'')+fmt(p.price))}">
-      <div class="card-img">${productSVG(p,p.coat)}<span class="badge">${badge}</span><span class="card-open">Выбрать размер и цвет →</span></div>
+    const badge = p.badge ? p.badge : p.cat==='table' ? (p.build==='ext'?'Раздвижной':'Цельный') : (p.height==='bar'?'Барный':p.height==='half'?'Полубарный':(p.arms?'С подлокотниками':'Без подлокотников'));
+    return `<button class="card" data-id="${p.id}" style="animation-delay:${i*50}ms" aria-label="${esc(p.type+' '+p.name+', '+priceText(p))}">
+      <div class="card-img">${productVisual(p,p.coat)}<span class="badge">${badge}</span><span class="card-open">Выбрать размер и цвет →</span></div>
       <div class="card-body">
         <span class="type">${esc(p.type)}</span>
         <h3>«${esc(p.name)}»</h3>
-        <span class="price num">${p.from?'<small>от</small>':''}${fmt(p.price)}</span>
+        <span class="price num${p.price==null?' ask':''}">${p.price==null?'Цена по запросу':(p.from?'<small>от</small>':'')+fmt(p.price)}</span>
         <div class="specs">${p.specs.map(s=>`<span>${esc(s)}</span>`).join('')}</div>
         <div class="swatches" aria-hidden="true">${COAT_KEYS.map(k=>`<i style="background:${COATS[k].base}"></i>`).join('')}</div>
       </div></button>`;
   }).join('');
 }
 function renderCatalog(){ renderCats(); renderParams(); renderGrid(); }
+renderMenus();
 
 catsEl.addEventListener('click',e=>{
   const b = e.target.closest('[data-cat]'); if(!b) return;
-  filt.cat = b.dataset.cat; filt.shape=filt.build=filt.arms='any'; renderCatalog();
+  filt.cat = b.dataset.cat; filt.shape=filt.build=filt.arms=filt.height=filt.kind='any'; renderCatalog();
 });
 paramsEl.addEventListener('click',e=>{
-  if(e.target.id==='resetF'){ filt.shape=filt.build=filt.arms='any'; renderCatalog(); return; }
+  if(e.target.id==='resetF'){ filt.shape=filt.build=filt.arms=filt.height=filt.kind='any'; renderCatalog(); return; }
   const b = e.target.closest('[data-k]'); if(!b) return;
   filt[b.dataset.k] = b.dataset.v; renderParams(); renderGrid();
 });
 grid.addEventListener('click',e=>{
-  if(e.target.id==='emptyReset'){ filt.shape=filt.build=filt.arms='any'; renderCatalog(); return; }
+  if(e.target.id==='emptyReset'){ filt.shape=filt.build=filt.arms=filt.height=filt.kind='any'; renderCatalog(); return; }
   const c = e.target.closest('.card'); if(c) openProduct(c.dataset.id);
 });
 $('#sort').addEventListener('change',e=>{ filt.sort=e.target.value; renderGrid(); });
-document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',()=>{
-  filt.cat = a.dataset.go; filt.shape=filt.build=filt.arms='any'; renderCatalog(); closeMobile();
-}));
+document.addEventListener('click',e=>{
+  const a = e.target.closest('[data-go]');
+  if(a){ filt.cat = a.dataset.go; filt.shape=filt.build=filt.arms=filt.height=filt.kind='any'; renderCatalog(); closeMobile(); setDD(false); return; }
+  if(!e.target.closest('#dd')) setDD(false);
+});
+const dd = $('#dd'), ddBtn = $('#ddBtn');
+function setDD(on){ dd.classList.toggle('open',on); ddBtn.setAttribute('aria-expanded',on); }
+let ddHoverAt = 0;
+ddBtn.addEventListener('click',()=>setDD(Date.now()-ddHoverAt < 500 ? true : !dd.classList.contains('open')));
+if(matchMedia('(hover:hover)').matches){ let t; dd.addEventListener('mouseenter',()=>{clearTimeout(t); if(!dd.classList.contains('open')) ddHoverAt=Date.now(); setDD(true)}); dd.addEventListener('mouseleave',()=>{t=setTimeout(()=>setDD(false),180)}); }
+dd.addEventListener('keydown',e=>{ if(e.key==='Escape'){ setDD(false); ddBtn.focus(); } });
 
 /* ============ PRODUCT MODAL ============ */
 const overlay = $('#overlay'), modal = $('#modal');
@@ -741,38 +1046,115 @@ let cur = null, lastFocus = null;
 
 function openProduct(id){
   const p = byId(id); if(!p) return;
-  cur = {p, size:0, coat:p.coat, qty:1, oneclick:false};
+  cur = {p, size:0, soft:0, top:0, coat:p.coat, qty:1, oneclick:false, pic:0, fabric:{c:0,k:2}, fabOpen:false, fabTab:0};
+  if(p.spec){ const sp=p.spec; for(let k=0;k<(sp.soft||[0]).length;k++){ if(specPrice(sp,oilOf(cur.coat),{size:0,soft:k,top:0})!=null){ cur.soft=k; break; } }
+    if(specPrice(sp,'o',cur)==null && specPrice(sp,'b',cur)!=null && oilOf(cur.coat)==='o') cur.coat='black'; }
   lastFocus = document.activeElement;
   renderModal();
   overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
   document.body.classList.add('locked');
   setTimeout(()=>modal.querySelector('.close').focus(),50);
 }
-function unitPrice(p,size){ const s = sizesFor(p); return p.price + (s? s[size].d : 0); }
+function unitPrice(p,sel){
+  sel = sel || {};
+  if(p.spec) return specPrice(p.spec, oilOf(sel.coat||p.coat), sel);
+  if(p.price==null) return null;
+  const s = sizesFor(p); return p.price + (s&&s[sel.size||0]? s[sel.size||0].d : 0);
+}
+function optLabels(p, sel){
+  const out = [], sp = p.spec;
+  if(sp){
+    if(sp.size) out.push(sp.size[sel.size||0]);
+    if(sp.soft) out.push(SOFT[sp.soft[sel.soft||0]].l);
+    if(needsFabric(p, sel) && sel.fabric) out.push('ткань ' + fabLabel(sel.fabric));
+    if(sp.top)  out.push('столешница ' + TOPS[sp.top[sel.top||0]].l.toLowerCase());
+  } else { const s = sizesFor(p); if(s) out.push(s[sel.size||0].l); }
+  out.push(COATS[sel.coat||p.coat].name);
+  return out;
+}
+function mediaHTML(){
+  const {p,coat} = cur, pics = picsFor(p), i = cur.pic, n = pics.length;
+  const main = i===0
+    ? productVisual(p,coat)+`<span class="m-coat-name">Покрытие: ${COATS[coat].name}</span>`
+    : `<img class="gimg${pics[i][1]?' cover':''}" src="${IMG_DIR}gallery/${pics[i][0]}.jpg" alt="${esc(p.type+' «'+p.name+'», фото '+(i+1))}">`;
+  return `<div class="m-visual" id="mVisual">${main}<span class="badge">${esc(p.specs[0])}</span>
+      ${n>1?`<button class="g-nav g-prev" data-g="-1" aria-label="Предыдущее фото">←</button><button class="g-nav g-next" data-g="1" aria-label="Следующее фото">→</button><span class="g-count">${i+1} / ${n}</span>`:''}</div>
+    ${n>1?`<div class="m-thumbs" id="mThumbs" role="group" aria-label="Фото модели">${pics.map((g,k)=>`<button data-pic="${k}" aria-current="${k===i}" aria-label="Фото ${k+1}">${k===0?`<span class="th0">${productVisual(p,coat)}</span>`:`<img src="${IMG_DIR}gallery/${g[0]}-t.jpg" alt="" loading="lazy">`}</button>`).join('')}</div>`:''}`;
+}
+function showPic(k){
+  const n = picsFor(cur.p).length;
+  if(n<2) return;
+  cur.pic = (k + n) % n;
+  const m = $('#mMedia'), keep = m.querySelector('#mThumbs')?.scrollLeft || 0;
+  m.innerHTML = mediaHTML();
+  const th = m.querySelector('#mThumbs'), act = th && th.children[cur.pic];
+  if(th){ th.scrollLeft = keep; const l = act.offsetLeft, r = l + act.offsetWidth;
+    if(l < th.scrollLeft) th.scrollLeft = l - 10; else if(r > th.scrollLeft + th.clientWidth) th.scrollLeft = r - th.clientWidth + 10; }
+}
+function optGroup(title, current, name, items){
+  return `<div class="opt"><h4>${title} <em>${current}</em></h4><div class="sizes${items.length>3?' many':''}" role="radiogroup" aria-label="${title}">${items.join('')}</div></div>`;
+}
+function optBtn(name, k, checked, label, small, disabled){
+  return `<button class="size" role="radio" aria-checked="${checked}" data-${name}="${k}"${disabled?' disabled':''}><b>${label}</b><small>${small}</small></button>`;
+}
+function fabricHTML(){
+  const fb = cur.fabric, F = FABRICS[fb.c], col = F.colors[fb.k];
+  let h = `<div class="opt fab"><h4>Ткань <em>${F.kind}</em></h4>
+    <button class="fab-current" data-act="fab" aria-expanded="${cur.fabOpen}"><i style="background:${col[2]}"></i>
+      <span>${F.name} ${col[0]} ${col[1]}<small>${F.note}</small></span><b>${cur.fabOpen?'Свернуть':'Изменить'}</b></button>`;
+  if(cur.fabOpen){
+    const T = FABRICS[cur.fabTab];
+    h += `<div class="fab-panel">
+      <div class="fab-tabs" role="group" aria-label="Коллекция">${FABRICS.map((x,i)=>`<button data-fabc="${i}" aria-pressed="${i===cur.fabTab}">${x.name} <small>${x.kind}</small></button>`).join('')}</div>
+      <p class="fab-meta">${T.note}</p>
+      <div class="fab-sw" role="radiogroup" aria-label="Цвет ткани ${T.name}">${T.colors.map((c,k)=>`<button role="radio" data-fabk="${k}" aria-checked="${cur.fabTab===fb.c&&k===fb.k}" title="${T.name} ${c[0]} ${c[1]}"><i style="background:${c[2]}"></i>${c[0]} ${c[1]}</button>`).join('')}</div>
+      <p class="fab-foot">${T.approx?'Цвета на экране приблизительные. ':''}Реальный цвет смотрите на образцах в шоуруме. Нужна другая ткань? Весь каталог <a href="https://mebeltex.by/catalog" target="_blank" rel="noopener">Mebeltex</a> подберём под ваш интерьер.</p>
+    </div>`;
+  }
+  return h + `</div>`;
+}
 function renderModal(){
-  const {p,size,coat,qty} = cur, sizes = sizesFor(p);
-  const unit = unitPrice(p,size);
+  const {p,qty} = cur, sp = p.spec, oil = oilOf(cur.coat);
+  const unit = unitPrice(p,cur);
+  const at = patch => { const v = sp ? specPrice(sp, oil, Object.assign({}, cur, patch)) : null; return v; };
+  let opts = '';
+  if(sp){
+    if(sp.size) opts += optGroup(sp.sizeTitle||'Размер', sp.size[cur.size], 'size', sp.size.map((l,k)=>{ const v=at({size:k}); const alt=v==null&&anyValid(sp,oil,cur,{size:k}); return optBtn('size',k,k===cur.size,l, v!=null?fmt(v):alt?'от '+fmt(specPrice(sp,oil,alt)):'не изготавливается', v==null&&!alt); }));
+    if(sp.soft) opts += optGroup('Мягкость', SOFT[sp.soft[cur.soft]].n, 'soft', sp.soft.map((id,k)=>{ const v=at({soft:k}); return optBtn('soft',k,k===cur.soft,SOFT[id].l, v==null?'нет в этом покрытии':fmt(v), v==null); }));
+    if(needsFabric(p, cur)) opts += fabricHTML();
+    else if(sp.soft && sp.soft[cur.soft]==='plus') opts += `<p class="note opt-note" style="margin-top:-8px">Цвет кожи: 7 вариантов, подберём по образцам в шоуруме или пришлём фото.</p>`;
+    if(sp.top)  opts += optGroup('Столешница', TOPS[sp.top[cur.top]].n, 'top', sp.top.map((id,k)=>{ const v=at({top:k}); const alt=v==null&&anyValid(sp,oil,cur,{top:k}); return optBtn('top',k,k===cur.top,TOPS[id].l, v!=null?fmt(v):alt?'другие размеры':'не изготавливается', v==null&&!alt); }));
+  } else {
+    const sizes = sizesFor(p);
+    if(sizes) opts += optGroup('Размер столешницы', sizes[cur.size].l, 'size', sizes.map((s,k)=>optBtn('size',k,k===cur.size,s.l, s.d?'+'+fmt(s.d):(p.price==null?'в наличии и под заказ':'базовая цена'))));
+  }
+  let coatNote = 'Цвет масла на цену не влияет.';
+  if(sp){ const po = specPrice(sp,'o',cur), pb = specPrice(sp,'b',cur);
+    if(po!=null && pb!=null) coatNote += ` Чёрное масло в 2 слоя: +${fmt(pb-po)}.`;
+    else if(po==null && pb!=null) coatNote = 'Изготавливается только в чёрном масле (2 слоя).';
+    else if(pb==null && po!=null) coatNote += ' В чёрном масле не изготавливается.'; }
+  const summary = optLabels(p,cur).slice(0,-1).join(' · ');
   modal.innerHTML = `
     <button class="close" data-act="close" aria-label="Закрыть">×</button>
-    <div class="m-visual" id="mVisual">${productSVG(p,coat)}<span class="badge">${esc(p.specs[0])}</span><span class="m-coat-name">Покрытие: ${COATS[coat].name}</span></div>
+    <div class="m-media" id="mMedia">${mediaHTML()}</div>
     <div class="m-info">
       <div>
         <div class="type">${esc(p.type)}</div>
         <h2 id="mTitle">«${esc(p.name)}»</h2>
       </div>
       <p class="m-desc">${esc(p.desc)}</p>
-      ${sizes?`<div class="opt"><h4>Размер столешницы <em>${sizes[size].l}</em></h4>
-        <div class="sizes" role="radiogroup" aria-label="Размер">${sizes.map((s,i)=>`<button class="size" role="radio" aria-checked="${i===size}" data-size="${i}"><b>${s.l}</b><small>${s.d?'+'+fmt(s.d):'базовая цена'}</small></button>`).join('')}</div></div>`:''}
-      <div class="opt"><h4>Цвет покрытия <em>${COATS[coat].name}</em></h4>
-        <div class="coats" role="radiogroup" aria-label="Цвет покрытия">${COAT_KEYS.map(k=>`<button class="coat" role="radio" aria-checked="${k===coat}" data-coat="${k}"><i style="background:linear-gradient(135deg,${COATS[k].light},${COATS[k].base} 55%,${COATS[k].dark})"></i>${COATS[k].name}</button>`).join('')}</div></div>
+      ${opts}
+      <div class="opt"><h4>Покрытие <em>${COATS[cur.coat].name}${COATS[cur.coat].note?' — '+COATS[cur.coat].note:''}</em></h4>
+        <div class="coats" role="radiogroup" aria-label="Покрытие">${COAT_KEYS.map(k=>`<button class="coat" role="radio" aria-checked="${k===cur.coat}" data-coat="${k}"><i style="background:linear-gradient(135deg,${COATS[k].light},${COATS[k].base} 55%,${COATS[k].dark})"></i>${COATS[k].name}</button>`).join('')}</div>
+        <p class="note opt-note">${coatNote}</p></div>
       <div class="buy">
         <div class="buy-top">
-          <div class="total"><span id="mTotal">${fmt(unit*qty)}</span><small>${qty>1?`${qty} × ${fmt(unit)}`:'цена за 1 шт.'}${sizes?' · '+sizes[size].l:''}</small></div>
+          ${unit==null?`<div class="total" style="font-size:24px"><span id="mTotal">Цена по запросу</span><small>${sp?'Этот вариант рассчитаем индивидуально':'Рассчитаем под размер и покрытие'}${summary?' · '+summary:''}</small></div>`:`<div class="total"><span id="mTotal">${fmt(unit*qty)}</span><small>${qty>1?`${qty} × ${fmt(unit)}`:'цена за 1 шт.'}${summary?' · '+summary:''}</small></div>`}
           <div class="qty" aria-label="Количество"><button data-act="minus" aria-label="Меньше">−</button><output>${qty}</output><button data-act="plus" aria-label="Больше">+</button></div>
         </div>
         <div class="buy-btns">
           <button class="btn btn-dark" data-act="add">Добавить в корзину</button>
-          <button class="btn btn-ghost" data-act="oneclick" aria-expanded="${cur.oneclick}">Заказ в 1 клик</button>
+          <button class="btn btn-ghost" data-act="oneclick" aria-expanded="${cur.oneclick}">${unit==null?'Узнать цену':'Заказ в 1 клик'}</button>
         </div>
         ${cur.oneclick?oneClickHTML():''}
       </div>
@@ -790,14 +1172,21 @@ function oneClickHTML(){
 }
 modal.addEventListener('click',e=>{
   const t = e.target.closest('button'); if(!t) return;
-  if(t.dataset.size!==undefined){ cur.size=+t.dataset.size; renderModal(); flashTotal(); return; }
-  if(t.dataset.coat){ cur.coat=t.dataset.coat; renderModal(); return; }
+  if(t.dataset.size!==undefined){ cur.size=+t.dataset.size; cur.last='size'; normalize(); renderModal(); flashTotal(); return; }
+  if(t.dataset.soft!==undefined){ cur.soft=+t.dataset.soft; cur.last='soft'; normalize(); renderModal(); flashTotal(); return; }
+  if(t.dataset.top!==undefined){ cur.top=+t.dataset.top; cur.last='top'; normalize(); renderModal(); flashTotal(); return; }
+  if(t.dataset.coat){ cur.coat=t.dataset.coat; cur.pic=0; renderModal(); flashTotal(); return; }
+  if(t.dataset.pic!==undefined){ showPic(+t.dataset.pic); return; }
+  if(t.dataset.g){ showPic(cur.pic + +t.dataset.g); return; }
+  if(t.dataset.fabc!==undefined){ cur.fabTab=+t.dataset.fabc; renderModal(); return; }
+  if(t.dataset.fabk!==undefined){ cur.fabric={c:cur.fabTab,k:+t.dataset.fabk}; cur.fabOpen=false; renderModal(); return; }
   switch(t.dataset.act){
+    case 'fab': cur.fabOpen=!cur.fabOpen; cur.fabTab=cur.fabric.c; renderModal(); break;
     case 'close': closeProduct(); break;
     case 'minus': if(cur.qty>1){cur.qty--; renderModal();} break;
     case 'plus': if(cur.qty<20){cur.qty++; renderModal();} break;
     case 'add':
-      addToCart(cur.p.id,cur.size,cur.coat,cur.qty);
+      addToCart(cur.p.id,Object.assign({size:cur.size,soft:cur.soft,top:cur.top,coat:cur.coat}, needsFabric(cur.p,cur)?{fabric:{...cur.fabric}}:{}),cur.qty);
       closeProduct();
       toast(`«${cur.p.name}» добавлен в корзину`);
       break;
@@ -819,17 +1208,22 @@ function closeProduct(){
   lastFocus && lastFocus.focus && lastFocus.focus();
 }
 overlay.addEventListener('click',e=>{ if(e.target===overlay) closeProduct(); });
+let gx = null;
+modal.addEventListener('touchstart',e=>{ gx = e.target.closest('#mVisual') ? e.touches[0].clientX : null; },{passive:true});
+modal.addEventListener('touchend',e=>{ if(gx==null) return; const dx = e.changedTouches[0].clientX - gx; if(Math.abs(dx)>40) showPic(cur.pic + (dx<0?1:-1)); gx=null; });
 
 /* ============ CART ============ */
 const drawer = $('#drawer'), dOv = $('#drawerOv');
 let orderDone = false;
-function keyOf(i){ return i.id+'|'+i.size+'|'+i.coat; }
-function addToCart(id,size,coat,qty){
-  const ex = cart.find(i=>keyOf(i)===id+'|'+size+'|'+coat);
-  if(ex) ex.qty = Math.min(99, ex.qty+qty); else cart.push({id,size,coat,qty});
+function keyOf(i){ return [i.id,i.size||0,i.soft||0,i.top||0,i.coat,i.fabric?i.fabric.c+'.'+i.fabric.k:''].join('|'); }
+function addToCart(id,sel,qty){
+  const item = Object.assign({id,qty}, sel), k = keyOf(item);
+  const ex = cart.find(i=>keyOf(i)===k);
+  if(ex) ex.qty = Math.min(99, ex.qty+qty); else cart.push(item);
   orderDone = false; saveCart(); renderCart();
 }
-function cartTotal(){ return cart.reduce((s,i)=>s+unitPrice(byId(i.id),i.size)*i.qty,0); }
+function cartTotal(){ return cart.reduce((s,i)=>s+(unitPrice(byId(i.id),i)||0)*i.qty,0); }
+const cartHasAsk = ()=>cart.some(i=>unitPrice(byId(i.id),i)==null);
 function renderCart(){
   const n = cart.reduce((s,i)=>s+i.qty,0);
   $('#cartCount').textContent = n;
@@ -845,12 +1239,12 @@ function renderCart(){
     return;
   }
   body.innerHTML = cart.map((i,idx)=>{
-    const p = byId(i.id), s = sizesFor(p), unit = unitPrice(p,i.size);
+    const p = byId(i.id), unit = unitPrice(p,i);
     return `<div class="ci">
-      <div class="ci-img">${productSVG(p,i.coat)}</div>
-      <div><h4>${esc(p.type)} «${esc(p.name)}»</h4><p>${s?s[i.size].l+' · ':''}${COATS[i.coat].name}</p>
+      <div class="ci-img">${productVisual(p,i.coat)}</div>
+      <div><h4>${esc(p.type)} «${esc(p.name)}»</h4><p>${esc(optLabels(p,i).join(' · '))}</p>
         <div class="qty"><button data-ci="${idx}" data-d="-1" aria-label="Меньше">−</button><output>${i.qty}</output><button data-ci="${idx}" data-d="1" aria-label="Больше">+</button></div></div>
-      <div class="ci-right"><b>${fmt(unit*i.qty)}</b><button class="rm" data-rm="${idx}">Удалить</button></div>
+      <div class="ci-right"><b>${unit==null?'по запросу':fmt(unit*i.qty)}</b><button class="rm" data-rm="${idx}">Удалить</button></div>
     </div>`;
   }).join('') + `
     <form class="d-form" id="orderForm" novalidate>
@@ -859,7 +1253,7 @@ function renderCart(){
       <div class="field"><label for="oPhone">Телефон</label><input id="oPhone" type="tel" autocomplete="tel" placeholder="+375 (__) ___-__-__"><span class="err">Укажите номер полностью</span></div>
       <div class="field"><label for="oDel">Получение</label><select id="oDel"><option>Доставка по Гомелю</option><option>Доставка по области</option><option>Самовывоз из ТЦ «Мебельный Квартал»</option></select></div>
     </form>`;
-  foot.innerHTML = `<div class="sum"><span>Итого, ${n} ${plural(n,['товар','товара','товаров'])}</span><b>${fmt(cartTotal())}</b></div>
+  foot.innerHTML = `<div class="sum"><span>Итого, ${n} ${plural(n,['товар','товара','товаров'])}</span><b>${fmt(cartTotal())}</b></div>${cartHasAsk()?'<p class="note" style="margin:-8px 0 14px">Без учёта позиций с ценой по запросу. Менеджер назовёт полную сумму.</p>':''}
     <button class="btn btn-dark" style="width:100%" type="submit" form="orderForm">Оформить заявку</button>
     <p class="note" style="text-align:center">Оплата после подтверждения заказа менеджером</p>`;
 }
@@ -893,7 +1287,9 @@ function validPhone(v){ return v.replace(/\D/g,'').length>=9; }
 let tt;
 function toast(msg){ $('#toastText').textContent=msg; const t=$('#toast'); t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),3800); }
 $('#toastAction').addEventListener('click',()=>{ $('#toast').classList.remove('show'); openCart(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(overlay.classList.contains('open')) closeProduct(); else if(drawer.classList.contains('open')) closeCart(); } });
+document.addEventListener('keydown',e=>{
+  if(overlay.classList.contains('open') && (e.key==='ArrowLeft'||e.key==='ArrowRight') && !/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)){ showPic(cur.pic + (e.key==='ArrowRight'?1:-1)); e.preventDefault(); return; }
+  if(e.key==='Escape'){ if(overlay.classList.contains('open')) closeProduct(); else if(drawer.classList.contains('open')) closeCart(); } });
 
 const burger=$('#burger'), mnav=$('#mobileNav');
 burger.addEventListener('click',()=>{ const o=mnav.classList.toggle('open'); burger.setAttribute('aria-expanded',o); });
@@ -914,8 +1310,83 @@ $('#quickForm').addEventListener('submit',e=>{
 });
 $('#qPhone').addEventListener('input',e=>e.target.parentElement.classList.remove('bad'));
 
+/* ============ FABRICS (Mebeltex) for «Комфорт» cushions ============
+   approx:true = кружки подобраны по названию цвета, точный цвет смотреть на образцах */
+const FABRICS = [
+  {id:'loft', name:'Loft', kind:'шенилл', note:'80 000 циклов · защита от жидкостей · без следов от рук', approx:true,
+   colors:[['1','Cream','#E6DCCB'],['2','Beige','#CDBFA8'],['3','Stone','#A9A196'],['5','Fossil','#8F8579'],['4','Brown','#6B5442'],
+           ['9','Rust','#9C4A2E'],['10','Olive','#6E6B3C'],['11','Winter Moss','#59604E'],['19','Grey','#8E8E8C'],['24','Graphite','#3E3F41']]},
+  {id:'jazz', name:'Jazz', kind:'рогожка', note:'150 000 циклов · матовая фактура под лён', approx:true,
+   colors:[['1','Cream','#E3D9C6'],['2','Beige','#C9BBA2'],['4','Fossil','#94897C'],['6','Stone','#A8A39A'],['7','Rabbit','#8A7E73'],
+           ['8','Green','#5E6A4C'],['19','Grey','#8D8D8B'],['22','Graphite','#404244']]},
+  {id:'hloya', name:'Hloya', kind:'велюр', note:'100 000 циклов · легко чистится · устойчива к когтям', approx:false,
+   colors:[['01','кремовый','#BFB7AA'],['51','песочный','#A69989'],['04','тауп','#817973'],['05','мокко','#846959'],
+           ['14','терракота','#7D3E2F'],['58','оливковый','#5B5633'],['08','серо-зелёный','#A4ADA8'],['20','графит','#545455']]}
+];
+const fabLabel = fb => { const F = FABRICS[fb.c], c = F.colors[fb.k]; return `${F.name} ${c[0]} ${c[1]}`; };
+// fabric picker hidden for now, needs a proper setup
+const needsFabric = () => false;
+
+/* ============ PRODUCT GALLERIES ============ */
+// photo slug -> [[file in images/gallery/, 1 = interior/close-up (fill frame) | 0 = studio shot (show whole)]]
+const GALLERY = {"typhoon":[["typhoon-01",0],["typhoon-02",1],["typhoon-03",1],["typhoon-04",0],["typhoon-05",1],["typhoon-06",1],["typhoon-07",1],["typhoon-08",0],["typhoon-09",1],["typhoon-10",1],["typhoon-11",1],["typhoon-12",1]],"bio-chair":[["bio-chair-01",0],["bio-chair-02",0],["bio-chair-03",1],["bio-chair-04",1],["bio-chair-05",0],["bio-chair-06",1],["bio-chair-07",1],["bio-chair-08",1],["bio-chair-09",0],["bio-chair-10",1],["bio-chair-11",1],["bio-chair-12",1]],"ilona-light":[["ilona-light-01",0],["ilona-light-02",0]],"korall":[["korall-01",0],["korall-02",1],["korall-03",1]],"karolina":[["karolina-01",0],["karolina-02",1],["karolina-03",0],["karolina-04",1],["karolina-05",1],["karolina-06",1],["karolina-07",1],["karolina-08",1]],"karolina-fix":[["karolina-fix-01",0],["karolina-fix-02",1],["karolina-fix-03",1],["karolina-fix-04",1]],"oxford":[["oxford-01",0],["oxford-02",1],["oxford-03",1],["oxford-04",1],["oxford-05",0],["oxford-06",0],["oxford-07",0],["oxford-08",0],["oxford-09",1],["oxford-10",1]],"milina":[["milina-01",0],["milina-02",1],["milina-03",1],["milina-04",1],["milina-05",1]],"vinara":[["vinara-01",0],["vinara-02",1],["vinara-03",1],["vinara-04",1],["vinara-05",0],["vinara-06",0],["vinara-07",0],["vinara-08",0]],"ronda":[["ronda-01",0],["ronda-02",0],["ronda-03",1],["ronda-04",1]],"infiniti":[["infiniti-01",0],["infiniti-02",0],["infiniti-03",0],["infiniti-04",0],["infiniti-05",1],["infiniti-06",1],["infiniti-07",1],["infiniti-08",1],["infiniti-09",1]],"infiniti-glass":[["infiniti-glass-01",0],["infiniti-glass-02",0],["infiniti-glass-03",0],["infiniti-glass-04",0],["infiniti-glass-05",0],["infiniti-glass-06",0]],"arkhar-round":[["arkhar-round-01",0],["arkhar-round-02",0],["arkhar-round-03",0],["arkhar-round-04",0]],"arkhar":[["arkhar-01",0],["arkhar-02",0]],"olden":[["olden-01",0],["olden-02",0],["olden-03",1],["olden-04",1],["olden-05",1],["olden-06",1],["olden-07",0]],"meduza":[["meduza-01",0],["meduza-02",0],["meduza-03",1],["meduza-04",1],["meduza-05",1],["meduza-06",0],["meduza-07",0]],"vera":[["vera-01",0],["vera-02",0],["vera-03",0],["vera-04",0]],"luka":[["luka-01",1],["luka-02",1],["luka-03",1],["luka-04",1],["luka-05",1],["luka-06",1],["luka-07",1],["luka-08",0],["luka-09",0]],"turin":[["turin-01",0],["turin-02",1],["turin-03",1],["turin-04",1],["turin-05",1]],"turin-soft":[["turin-soft-01",0],["turin-soft-02",1]],"kioto":[["kioto-01",0],["kioto-02",0],["kioto-03",1],["kioto-04",1],["kioto-05",0],["kioto-06",1]],"barokko":[["barokko-01",0],["barokko-02",1],["barokko-03",1],["barokko-04",1]],"tvist":[["tvist-01",0],["tvist-02",1],["tvist-03",1],["tvist-04",1]],"triada":[["triada-01",0],["triada-02",1],["triada-03",1],["triada-04",1],["triada-05",1]],"meri":[["meri-01",0],["meri-02",1],["meri-03",1],["meri-04",1],["meri-05",1],["meri-06",1],["meri-07",0],["meri-08",1],["meri-09",1],["meri-10",1],["meri-11",1],["meri-12",1]],"linda":[["linda-01",0],["linda-02",0],["linda-03",0],["linda-04",0],["linda-05",0],["linda-06",0],["linda-07",1],["linda-08",1],["linda-09",0],["linda-10",0],["linda-11",1],["linda-12",1]],"ilona":[["ilona-01",0],["ilona-02",0],["ilona-03",1],["ilona-04",1],["ilona-05",1],["ilona-06",1]],"garvard":[["garvard-01",0],["garvard-02",0],["garvard-03",0],["garvard-04",1],["garvard-05",1]],"garvard-komfort":[["garvard-komfort-01",0],["garvard-komfort-02",0],["garvard-komfort-03",0],["garvard-komfort-04",0],["garvard-komfort-05",0],["garvard-komfort-06",0],["garvard-komfort-07",0],["garvard-komfort-08",0],["garvard-komfort-09",0]],"vinara-chair":[["vinara-chair-01",0],["vinara-chair-02",0],["vinara-chair-03",0],["vinara-chair-04",0],["vinara-chair-05",0],["vinara-chair-06",0],["vinara-chair-07",0],["vinara-chair-08",0],["vinara-chair-09",0],["vinara-chair-10",0],["vinara-chair-11",0],["vinara-chair-12",0]],"bio-soft":[["bio-soft-01",0],["bio-soft-02",0],["bio-soft-03",0]],"anastasiya":[["anastasiya-01",0],["anastasiya-02",0],["anastasiya-03",0],["anastasiya-04",0],["anastasiya-05",0],["anastasiya-06",0],["anastasiya-07",1],["anastasiya-08",1],["anastasiya-09",1]],"anastasiya-half":[["anastasiya-half-01",0],["anastasiya-half-02",0],["anastasiya-half-03",0],["anastasiya-half-04",0],["anastasiya-half-05",0]],"anastasiya-bar":[["anastasiya-bar-01",0],["anastasiya-bar-02",0],["anastasiya-bar-03",0],["anastasiya-bar-04",0],["anastasiya-bar-05",0]],"frau":[["frau-01",0],["frau-02",0],["frau-03",0]],"vardo":[["vardo-01",0],["vardo-02",0]],"vardo-half":[["vardo-half-01",0],["vardo-half-02",0]],"dzhenni":[["dzhenni-01",0],["dzhenni-02",0],["dzhenni-03",0],["dzhenni-04",0],["dzhenni-05",0],["dzhenni-06",0],["dzhenni-07",0],["dzhenni-08",0],["dzhenni-09",0],["dzhenni-10",0],["dzhenni-11",0],["dzhenni-12",0]],"milina-chair":[["milina-chair-01",1],["milina-chair-02",0],["milina-chair-03",0]],"samurai":[["samurai-01",0],["samurai-02",1],["samurai-03",1],["samurai-04",1],["samurai-05",1],["samurai-06",1],["samurai-07",0],["samurai-08",1],["samurai-09",1],["samurai-10",1],["samurai-11",1],["samurai-12",0]],"denver":[["denver-01",0],["denver-02",1],["denver-03",1],["denver-04",1],["denver-05",0],["denver-06",1],["denver-07",0],["denver-08",1],["denver-09",1],["denver-10",1],["denver-11",1],["denver-12",1]],"bed-nitstsa":[["bed-nitstsa-01",1],["bed-nitstsa-02",0],["bed-nitstsa-03",0],["bed-nitstsa-04",1],["bed-nitstsa-05",0]],"bed-elegiya":[["bed-elegiya-01",1],["bed-elegiya-02",0],["bed-elegiya-03",0],["bed-elegiya-04",0],["bed-elegiya-05",0],["bed-elegiya-06",1],["bed-elegiya-07",1],["bed-elegiya-08",1]],"tumba-nitstsa":[["tumba-nitstsa-01",1],["tumba-nitstsa-02",1],["tumba-nitstsa-03",1]],"tumba-elegiya":[["tumba-elegiya-01",1],["tumba-elegiya-02",1],["tumba-elegiya-03",1],["tumba-elegiya-04",1],["tumba-elegiya-05",1]],"dressing-table":[["dressing-table-01",0],["dressing-table-02",0],["dressing-table-03",1],["dressing-table-04",1],["dressing-table-05",1]],"komod-elegiya":[["komod-elegiya-01",1],["komod-elegiya-02",1],["komod-elegiya-03",1],["komod-elegiya-04",1],["komod-elegiya-05",1],["komod-elegiya-06",1],["komod-elegiya-07",0],["komod-elegiya-08",1],["komod-elegiya-09",1],["komod-elegiya-10",1],["komod-elegiya-11",1],["komod-elegiya-12",0]],"komod-viola":[["komod-viola-01",1],["komod-viola-02",1],["komod-viola-03",1],["komod-viola-04",1],["komod-viola-05",1],["komod-viola-06",1],["komod-viola-07",1]],"komod-versal":[["komod-versal-01",1],["komod-versal-02",1],["komod-versal-03",1],["komod-versal-04",1],["komod-versal-05",1],["komod-versal-06",1],["komod-versal-07",0]],"shkaf-versal":[["shkaf-versal-01",1],["shkaf-versal-02",1],["shkaf-versal-03",1],["shkaf-versal-04",1],["shkaf-versal-05",1],["shkaf-versal-06",1]],"shkaf-versal-glass":[["shkaf-versal-glass-01",1],["shkaf-versal-glass-02",1]]};
+const picsFor = p => [null].concat(GALLERY[p.photo] || []);   // index 0 = photo in the selected coat
+
+/* ============ HERO SLIDESHOW ============ */
+const HERO = [
+  {img:'hero-typhoon.jpg',   id:'t-typhoon',       note:'со стульями «Дежавю»'},
+  {img:'hero-milina1.jpg',   id:'t-milina',        note:'со стульями «Био»'},
+  {img:'hero-milina2.jpg',   id:'c-bio-arm',       note:'массив дуба, подлокотники'},
+  {img:'hero-karolina1.jpg', id:'t-karolina',      note:'раскладной, со стульями «Линда»'},
+  {img:'hero-korall.jpg',    id:'t-korall',        note:'240×110 см, со стульями «Турин»'},
+  {img:'hero-oxford.jpg',    id:'t-oxford',        note:'Ø 110 см, со стульями «Илона»'},
+  {img:'hero-infiniti.jpg',  id:'t-infiniti',      note:'Ø 120 см, со стульями «Линда»'},
+  {img:'hero-vinara1.jpg',   id:'t-vinara',        note:'со стульями «Винара»'},
+  {img:'hero-karfix.jpg',    id:'t-karolina-fix',  note:'на двух опорах'}
+];
+function initHero(){
+  const box = $('#heroVisual'), track = $('#hsTrack'), bar = $('#hsBar'), tag = $('#hsTag');
+  const label = p => (p.cat==='table'?'Стол':'Стул')+' «'+p.name+'»';
+  track.innerHTML = HERO.map((h,i)=>{ const p=byId(h.id);
+    return `<div class="hs-slide" aria-hidden="${i!==0}"><img src="${IMG_DIR}${h.img}" alt="${esc(label(p)+', '+h.note)}" ${i>1?'loading="lazy"':''} onerror="this.parentNode.remove()"></div>`; }).join('');
+  bar.innerHTML = HERO.map((h,i)=>`<button type="button" aria-label="Слайд ${i+1}: ${esc(label(byId(h.id)))}"><i></i></button>`).join('');
+  const slides = [...track.children], dots = [...bar.children];
+  let cur = -1;
+  function show(n){
+    n = (n + HERO.length) % HERO.length;
+    if(n===cur) return;
+    cur = n;
+    const h = HERO[n], p = byId(h.id);
+    track.querySelectorAll('.hs-slide').forEach(el=>{ const on = slides.indexOf(el)===n; el.classList.toggle('on',on); el.setAttribute('aria-hidden',!on); });
+    dots.forEach((d,i)=>{ d.classList.remove('on'); d.classList.toggle('done', i<n); d.setAttribute('aria-current', i===n); });
+    void dots[n].offsetWidth; dots[n].classList.add('on');
+    tag.classList.add('swap');
+    setTimeout(()=>{
+      $('#hsTitle').textContent = label(p);
+      $('#hsNote').textContent = h.note + ' · ' + priceText(p);
+      tag.dataset.id = p.id;
+      tag.classList.remove('swap');
+    }, cur===n && tag.dataset.id ? 300 : 0);
+  }
+  bar.addEventListener('animationend', e=>{ if(e.target.parentNode===dots[cur]) show(cur+1); });
+  bar.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) show(dots.indexOf(b)); });
+  tag.addEventListener('click', ()=> tag.dataset.id && openProduct(tag.dataset.id));
+  const pause = on => box.classList.toggle('paused', on);
+  box.addEventListener('mouseenter', ()=>pause(true));
+  box.addEventListener('mouseleave', ()=>pause(false));
+  box.addEventListener('focusin', ()=>pause(true));
+  box.addEventListener('focusout', ()=>pause(false));
+  document.addEventListener('visibilitychange', ()=>pause(document.hidden));
+  // swipe on phones
+  let x0 = null;
+  box.addEventListener('touchstart', e=>{ x0 = e.touches[0].clientX; }, {passive:true});
+  box.addEventListener('touchend', e=>{ if(x0==null) return; const dx = e.changedTouches[0].clientX - x0; if(Math.abs(dx)>40) show(cur + (dx<0?1:-1)); x0=null; });
+  show(0);
+}
+
 /* ============ INIT ============ */
 $('#heroVisual').insertAdjacentHTML('afterbegin', heroSVG());
+initHero();
 renderCatalog();
 renderCart();
 })();
